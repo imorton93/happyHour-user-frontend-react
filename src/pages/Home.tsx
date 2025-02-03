@@ -1,5 +1,11 @@
+import MainBody from "../components/MainBody"
+
 const Home = () => {
-    return <h1>Welcome</h1>;
+    return (
+    <>
+        <MainBody />    
+    </>
+    );
 };
 
 export default Home;
