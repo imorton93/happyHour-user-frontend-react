@@ -5,24 +5,32 @@ export interface Restaurant {
     url: string;
     city: string;
     province: string;
+    latitude: number;
+    longitude: number;
+    categories: string[];
+    business_hours: {
+        day: number;
+        end: string;
+        start: string;
+    }[];
     deals:{
         happyHour:{
             hasDeals: boolean;
             url?: string;
-            times?:{
+            times:{
                 allDay: boolean;
                 from: string;
                 to: string;
                 description: string;
                 days: number[];
             }[];
-            drinks?:{
+            drinks:{
                 name: string;
                 price: number;
                 type: string;
                 description: string;
             }[];
-            food?:{
+            food:{
                 name: string;
                 price: number;
                 description: string;

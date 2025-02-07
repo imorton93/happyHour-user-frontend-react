@@ -4,6 +4,7 @@ import RadioButtonGroup from "./RadioButtonGroup";
 import HappyHourPage from "./HappyHourPage";
 import { SetStateAction, useState } from "react";
 import DailySpecialsPage from "./DailySpecialsPage";
+import BusinessHours from "./BusinessHours";
 
 
 
@@ -33,6 +34,7 @@ function DetailWindow({
                     <Container>
                         <p>Address: {selectedRestaurant.address}, {selectedRestaurant.city}, {selectedRestaurant.province}</p>
                         <p>Website: <a href={selectedRestaurant.url} target="_blank">{selectedRestaurant.url}</a></p>
+                        <BusinessHours selectedRestaurant={selectedRestaurant}></BusinessHours>
                         {hasBothTypesDeals && 
                             <RadioButtonGroup selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
                         }

@@ -1,28 +1,19 @@
 import { Accordion, Form } from "react-bootstrap";
 
 
-
 function DrinkPrice({
-        minPrice,
         maxPrice,
         discountWine,
-        setMinDrinkPrice,
         setMaxDrinkPrice,
         setDiscountWine,
     }:
     {
-        minPrice: number | undefined;
         maxPrice: number | undefined;
         discountWine: boolean;
-        setMinDrinkPrice: React.Dispatch<React.SetStateAction<number | undefined>>;
         setMaxDrinkPrice: React.Dispatch<React.SetStateAction<number | undefined>>;
         setDiscountWine: React.Dispatch<React.SetStateAction<boolean>>;
     }
     ){
-
-    function onMinPriceChange(value: number): void {
-      setMinDrinkPrice(value);
-    }
 
     function onMaxPriceChange(value: number): void {
       setMaxDrinkPrice(value);
@@ -37,7 +28,7 @@ function DrinkPrice({
       <Accordion.Header className="text-start">Drink Price</Accordion.Header>
       <Accordion.Body className="bg-dark bg-gradient">
         <Form>
-            {/* Min Price Input */}
+            {/* Min Price Input
           <Form.Group className="mb-2">
             <Form.Label className="text-start d-block text-white">Min Price</Form.Label>
             <Form.Control
@@ -48,11 +39,11 @@ function DrinkPrice({
               step="0.01"
               min="0"
             />
-          </Form.Group>
+          </Form.Group> */}
 
           {/* Max Price INput  */}
           <Form.Group className="mb-2">
-            <Form.Label className="text-start d-block text-white">Max Price</Form.Label>
+            <Form.Label className="text-start d-block text-white">Max Drink Price</Form.Label>
             <Form.Control
               type="number"
               value={maxPrice !== undefined ? maxPrice.toFixed(2) : ""}

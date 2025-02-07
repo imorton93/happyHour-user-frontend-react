@@ -6,12 +6,13 @@ import { Restaurant } from "../types/Restaurant";
 const Home = () => {
 
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-
+    const [filteredRestaurants, setFilteredRestaurants] = useState<Restaurant[]>([]);
     const { data, isLoading, error } = useRestaurants();
 
     useEffect(() => {
         if(data) {
             setRestaurants(data);
+            setFilteredRestaurants(data);
         }   
     }, [data])
 
@@ -26,7 +27,7 @@ const Home = () => {
     return (
         <div style={{ height: '100%'}}>
             
-            <MainBody restaurants={restaurants}/>    
+            <MainBody restaurants={restaurants} filteredRestaurants={filteredRestaurants} setFilteredRestaurants={setFilteredRestaurants}/>    
         </div>
     );
 };

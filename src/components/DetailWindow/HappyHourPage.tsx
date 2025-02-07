@@ -131,7 +131,6 @@ function HappyHourPage({
             {finalTimes.map((time) => (
                 <HappyHourTimes key={uuidv4()} allDay={time.allDay} from={time.from} to={time.to} dayStretches={time.dayStretches} everyDay={time.everyDay}/>
             ))}
-            <a href={selectedRestaurant.deals.happyHour.url} target="_blank">Happy Hour Website</a>
 
             <h5>Drinks</h5>
             <Row className="g-4">

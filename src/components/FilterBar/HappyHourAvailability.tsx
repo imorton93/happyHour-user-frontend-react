@@ -1,24 +1,28 @@
+import { useEffect, useState } from "react";
 import { Accordion, Form } from "react-bootstrap";
 
 
-function Availability({
+function HappyHourAvailability({
         availableNow,
         selectedDay,
         selectedTime,
         setAvailableNow,
         setSelectedDay,
         setSelectedTime,
+        showValidation,
     }:
     {
         availableNow: boolean;
         selectedDay?: string;
         selectedTime?: string;
+        showValidation: boolean;
         setAvailableNow: React.Dispatch<React.SetStateAction<boolean>>;
         setSelectedDay: React.Dispatch<React.SetStateAction<string>>;
         setSelectedTime: React.Dispatch<React.SetStateAction<string>>
     }){
 
       const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
 
       function onAvailableNowChange(value: boolean): void {
         setAvailableNow(value);
@@ -29,6 +33,7 @@ function Availability({
 
       function onDayChange(value: string): void {
         setSelectedDay(value);
+
       }
 
       function onTimeChange(value: string): void {
@@ -38,7 +43,7 @@ function Availability({
 
     return(
         <Accordion className="rounded-0 p-0">
-          <Accordion.Header className="text-start">Availability</Accordion.Header>
+          <Accordion.Header className="text-start">Happy Hour Availability</Accordion.Header>
           <Accordion.Body className="bg-dark bg-gradient">
             <Form>
               {/* Available Now Checkbox */}
@@ -54,10 +59,11 @@ function Availability({
 
               {/* Weekday Selector */}
               <Form.Group className="mb-2">
-                <Form.Label className="text-start d-block text-white">Select a Weekday</Form.Label>
+                <Form.Label className="text-start d-block text-white">Select a Weekday and Time</Form.Label>
                 <Form.Select 
                   value={selectedDay || ""} 
                   onChange={(e) => onDayChange(e.target.value)}
+                  isInvalid={showValidation}
                   className="form-select-sm"
                   disabled={availableNow} // Disable if "Available Now" is checked
                 >
@@ -68,18 +74,20 @@ function Availability({
                     </option>
                   ))}
                 </Form.Select>
-              </Form.Group>
-
+                <br></br>
               {/* Time Picker */}
-              <Form.Group>
-                <Form.Label className="text-start d-block text-white">Choose a Time</Form.Label>
                 <Form.Control
                   type="time"
                   value={selectedTime || ""}
                   onChange={(e) => onTimeChange(e.target.value)}
                   disabled={availableNow} // Disable if "Available Now" is checked
                   className="form-control-sm"
+                  onFocus={(e) => (e.target as HTMLInputElement).showPicker?.()}
+                  isInvalid={showValidation}
                 />
+
+                {showValidation && <div className="invalid-feedback">Please fill out both fields</div>}
+
               </Form.Group>
             </Form>
           </Accordion.Body>
@@ -87,4 +95,4 @@ function Availability({
     )
 }
 
-export default Availability;
+export default HappyHourAvailability;
