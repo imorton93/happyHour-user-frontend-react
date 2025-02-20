@@ -1,10 +1,11 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import FilterBar from "./FilterBar/FilterBar";
 import ListContainer from "./ListContainer";
 import OrderBy from "./OrderBy";
 import { Restaurant } from "../types/Restaurant";
 import { useState } from "react";
 import { FilterObject } from "../types/FilterObject";
+import MapView from "./MapView";
 
 const MainBody = ({ 
         restaurants,
@@ -21,6 +22,13 @@ const MainBody = ({
     const [searchQuery, setSearchQuery] = useState("");
     const [filters, setFilters] = useState<FilterObject>({});
     const [orderBy, setOrderBy] = useState("alpha");
+    const [mapView, setMapView] = useState(false);
+
+
+    //toggle map view
+    function toggleView(){
+        setMapView((prev) => !prev);
+    }
 
     //initially called by Apply button in FilterBar component
     function handleFilterChange(newFilters: FilterObject){
@@ -374,14 +382,28 @@ const MainBody = ({
 
             <h2 className="mb-3">Vancity Happy Hour</h2>
             <Row>
-                {/* <OrderBy/> */}
+
+                <Col sm={8}>
+                    {/* <OrderBy/> */}
+                </Col>
+                <Col sm={4}>
+                    <Button onClick={toggleView}>
+                        {mapView ? 'List View' : 'Map View'}
+                    </Button>
+                </Col>
+                
             </Row>
             <Row style={{ height: '100%'}}>
                 <Col style={{ height: '100%'}} xs={12} md={3}>
                     <FilterBar handleFilterChange={handleFilterChange}/>
                 </Col>
                 <Col style={{ height: '100%'}} xs={12} md={9}>
-                    <ListContainer restaurants={filteredRestaurants} />
+                    {mapView ? (
+                        <MapView restaurants={filteredRestaurants}></MapView>
+                    ) : (
+                        <ListContainer restaurants={filteredRestaurants} />
+                    )}
+                    
                 </Col>
             </Row>
             

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import MainBody from "../components/MainBody"
 import { useRestaurants } from "../hooks/useRestaurant";
 import { Restaurant } from "../types/Restaurant";
+import MapView from "../components/MapView";
 
 const Home = () => {
 
@@ -26,8 +27,7 @@ const Home = () => {
 
     return (
         <div style={{ height: '100%'}}>
-            
-            <MainBody restaurants={restaurants} filteredRestaurants={filteredRestaurants} setFilteredRestaurants={setFilteredRestaurants}/>    
+            <MainBody restaurants={restaurants} filteredRestaurants={filteredRestaurants} setFilteredRestaurants={setFilteredRestaurants}/>
         </div>
     );
 };
