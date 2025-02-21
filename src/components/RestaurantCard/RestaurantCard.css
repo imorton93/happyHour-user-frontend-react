@@ -1,0 +1,43 @@
+.restaurant-card {
+    padding: 15px;
+    margin: 5px 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.restaurant-image img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.restaurant-details {
+    flex-grow: 1;
+}
+
+.categories {
+    margin-top: 5px;
+}
+
+.category-badge {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    margin-right: 5px;
+}
+
+.restaurant-status {
+    text-align: right;
+    min-width: 150px;
+}
+
+.check-icon {
+    color: green;
+}
+
+.cross-icon {
+    color: red;
+}

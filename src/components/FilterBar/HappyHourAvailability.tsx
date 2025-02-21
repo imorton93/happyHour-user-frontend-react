@@ -42,56 +42,54 @@ function HappyHourAvailability({
 
 
     return(
-        <Accordion className="rounded-0 p-0">
-          <Accordion.Header className="text-start">Happy Hour Availability</Accordion.Header>
-          <Accordion.Body className="bg-dark bg-gradient">
-            <Form>
-              {/* Available Now Checkbox */}
-              <Form.Group controlId="availableNowCheckbox">
-                <Form.Check
-                  type="checkbox"
-                  label="Available Now"
-                  checked={availableNow}
-                  onChange={(e) => onAvailableNowChange(e.target.checked)}
-                  className="text-start text-white"
-                />
-              </Form.Group>
+        
+          
+          <Form className="border-bottom mb-3">
+            <h5 className="centered">Happy Hour Availability</h5>
+            {/* Available Now Checkbox */}
+            <Form.Group controlId="availableNowCheckbox">
+              <Form.Check
+                type="checkbox"
+                label="Available Now"
+                checked={availableNow}
+                onChange={(e) => onAvailableNowChange(e.target.checked)}
+                className="text-start"
+              />
+            </Form.Group>
 
-              {/* Weekday Selector */}
-              <Form.Group className="mb-2">
-                <Form.Label className="text-start d-block text-white">Select a Weekday and Time</Form.Label>
-                <Form.Select 
-                  value={selectedDay || ""} 
-                  onChange={(e) => onDayChange(e.target.value)}
-                  isInvalid={showValidation}
-                  className="form-select-sm"
-                  disabled={availableNow} // Disable if "Available Now" is checked
-                >
-                  <option value="">Choose a day</option>
-                  {weekdays.map((day) => (
-                    <option key={day} value={day}>
-                      {day}
-                    </option>
-                  ))}
-                </Form.Select>
-                <br></br>
-              {/* Time Picker */}
-                <Form.Control
-                  type="time"
-                  value={selectedTime || ""}
-                  onChange={(e) => onTimeChange(e.target.value)}
-                  disabled={availableNow} // Disable if "Available Now" is checked
-                  className="form-control-sm"
-                  onFocus={(e) => (e.target as HTMLInputElement).showPicker?.()}
-                  isInvalid={showValidation}
-                />
+            {/* Weekday Selector */}
+            <Form.Group>
+              <Form.Label className="text-start d-block mt-2">Select a Weekday and Time</Form.Label>
+              <Form.Select 
+                value={selectedDay || ""} 
+                onChange={(e) => onDayChange(e.target.value)}
+                isInvalid={showValidation}
+                className="form-select-sm"
+                disabled={availableNow} // Disable if "Available Now" is checked
+              >
+                <option value="">Choose a day</option>
+                {weekdays.map((day) => (
+                  <option key={day} value={day}>
+                    {day}
+                  </option>
+                ))}
+              </Form.Select>
+              <br></br>
+            {/* Time Picker */}
+              <Form.Control
+                type="time"
+                value={selectedTime || ""}
+                onChange={(e) => onTimeChange(e.target.value)}
+                disabled={availableNow} // Disable if "Available Now" is checked
+                className="form-control-sm mb-4"
+                onFocus={(e) => (e.target as HTMLInputElement).showPicker?.()}
+                isInvalid={showValidation}
+              />
 
-                {showValidation && <div className="invalid-feedback">Please fill out both fields</div>}
+              {showValidation && <div className="invalid-feedback">Please fill out both fields</div>}
 
-              </Form.Group>
-            </Form>
-          </Accordion.Body>
-        </Accordion>
+            </Form.Group>
+          </Form>
     )
 }
 

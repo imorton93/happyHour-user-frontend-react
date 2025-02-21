@@ -24,10 +24,8 @@ function DrinkPrice({
     }
 
     return (
-    <Accordion className="rounded-0 p-0">
-      <Accordion.Header className="text-start">Drink Price</Accordion.Header>
-      <Accordion.Body className="bg-dark bg-gradient">
-        <Form>
+        <Form className="border-bottom mb-3 pb-3">
+          <h5 className="centered">Drink Pricing</h5>
             {/* Min Price Input
           <Form.Group className="mb-2">
             <Form.Label className="text-start d-block text-white">Min Price</Form.Label>
@@ -43,7 +41,7 @@ function DrinkPrice({
 
           {/* Max Price INput  */}
           <Form.Group className="mb-2">
-            <Form.Label className="text-start d-block text-white">Max Drink Price</Form.Label>
+            <Form.Label className="text-start d-block">Max Drink Price</Form.Label>
             <Form.Control
               type="number"
               value={maxPrice !== undefined ? maxPrice.toFixed(2) : ""}
@@ -61,12 +59,10 @@ function DrinkPrice({
                 label="Discount Wine Bottles"
                 checked={discountWine}
                 onChange={(e) => onDiscountWineChange(e.target.checked)}
-                className="text-start text-white"
+                className="text-start"
             />
           </Form.Group>
         </Form>
-      </Accordion.Body>
-    </Accordion>
     )
 }
 

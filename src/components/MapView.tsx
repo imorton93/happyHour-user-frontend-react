@@ -9,6 +9,7 @@ import { Button, Card, Container } from 'react-bootstrap';
 import { Restaurant } from '../types/Restaurant';
 import { useState } from 'react';
 import DetailWindow from './DetailWindow/DetailWindow';
+import RestaurantCard from './RestaurantCard/RestaurantCard';
 
 // Fix Leaflet marker icon issue in React
 const customIcon = new L.Icon({
@@ -47,21 +48,28 @@ export default function MapView({ restaurants }: { restaurants: Restaurant[]}) {
   return (
     <Container className="border border-success h-75 bg-dark bg-gradient" style={{ overflowY: "auto"}}>
         
-                <MapContainer center={[49.2827, -123.1207]} zoom={13} style={{ height: '100%', width: '100%' }}>
+                <MapContainer center={[49.2827, -123.1207]} zoom={13} minZoom={10} maxZoom={16} style={{ height: '100%', width: '100%' }}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
-                {locations.map((location) => (
-                    <Marker key={location.yelpid} position={[location.lat, location.lng]} icon={customIcon}>
+                {restaurants.map((restaurant) => (
+                    <Marker key={restaurant.yelpid} position={[restaurant.latitude, restaurant.longitude]} icon={customIcon}>
                     <Popup>
+                        {/* <RestaurantCard restaurant={restaurant}/>
+                        <Button
+                            variant="primary"
+                            onClick={() => onSelectedRestaurant(restaurant.yelpid)}
+                        >
+                        See Deals
+                        </Button> */}
                         <Card style={{ width: '18rem' }}>
                             <div>
-                                <h3>{location.name}</h3>
+                                <h3>{restaurant.name}</h3>
                                 
                                 <Button
                                     variant="primary"
-                                    onClick={() => onSelectedRestaurant(location.yelpid)}
+                                    onClick={() => onSelectedRestaurant(restaurant.yelpid)}
                                 >
                                     Menu Deals
                                 </Button>

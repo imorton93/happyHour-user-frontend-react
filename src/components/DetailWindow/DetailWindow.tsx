@@ -2,7 +2,7 @@ import {  Container, Modal } from "react-bootstrap";
 import { Restaurant } from "../../types/Restaurant";
 import RadioButtonGroup from "./RadioButtonGroup";
 import HappyHourPage from "./HappyHourPage";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import DailySpecialsPage from "./DailySpecialsPage";
 import BusinessHours from "./BusinessHours";
 

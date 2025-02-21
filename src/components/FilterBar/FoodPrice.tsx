@@ -19,13 +19,12 @@ function FoodPrice({
 
 
     return (
-    <Accordion className="rounded-0 p-0">
-      <Accordion.Header className="text-start">Food Price</Accordion.Header>
-      <Accordion.Body className="bg-dark bg-gradient">
-        <Form>
+    
+        <Form className="border-bottom pb-3">
+          <h5 className="centered">Food Pricing</h5>
           {/* Max Price INput  */}
           <Form.Group className="mb-2">
-            <Form.Label className="text-start d-block text-white">Max Food Price</Form.Label>
+            <Form.Label className="text-start d-block">Max Food Price</Form.Label>
             <Form.Control
               type="number"
               value={maxPrice !== undefined ? maxPrice.toFixed(2) : ""}
@@ -36,8 +35,7 @@ function FoodPrice({
             />
           </Form.Group>
         </Form>
-      </Accordion.Body>
-    </Accordion>
+      
     )
 }
 

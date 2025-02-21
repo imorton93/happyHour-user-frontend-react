@@ -7,15 +7,18 @@ import FoodPrice from './FoodPrice';
 import HappyHourAvailability from './HappyHourAvailability';
 import { FilterObject  } from '../../types/FilterObject';
 import DailySpecialsAvailability from './DailySpecialsAvailability';
+import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 
 function dollarsToCents(amount: number): number {
     return Math.round(amount * 100);
 }
 
 
-function FilterBar({ handleFilterChange }:
+function FilterBar({ handleFilterChange, filterView, setFilterView }:
     {
         handleFilterChange: (newFilters: FilterObject) => void;
+        filterView: boolean;
+        setFilterView: React.Dispatch<React.SetStateAction<boolean>>;
     }
 ) {
     const [badgeCount, setBadgeCount] = useState(0);
@@ -43,6 +46,10 @@ function FilterBar({ handleFilterChange }:
         },
         {
             name: "Cider",
+            isChecked: false,
+        },
+        {
+            name: "Wine",
             isChecked: false,
         }
     ]);
@@ -134,6 +141,7 @@ function FilterBar({ handleFilterChange }:
             //create an array of FilterObjects based on set filters
             let newFilters: FilterObject = createFilters();
             handleFilterChange(newFilters);
+            setFilterView(false);
         }
         
         
@@ -142,38 +150,89 @@ function FilterBar({ handleFilterChange }:
 
 
     return (
-        <div className="filter-menu border-2 rounded-bottom mr-0 filter-bar"  style={{ maxWidth: '18rem'}}>
-            <FilterHeader badgeCount={badgeCount} clearFilter={clearFilter} applyFilter={applyFilter}></FilterHeader>
-            <HappyHourAvailability 
-                availableNow={availableNow_HappyHour} 
-                selectedDay={selectedDay_HappyHour} 
-                selectedTime={selectedTime_HappyHour}
-                showValidation={showValidation_HappyHourAvailability} 
-                setAvailableNow={setAvailableNow_HappyHour} 
-                setSelectedDay={setSelectedDay_HappyHour} 
-                setSelectedTime={setSelectedTime_HappyHour}>
-            </HappyHourAvailability>
-            <DailySpecialsAvailability
-                availableToday_DailySpecials={availableToday_DailySpecials}
-                selectedDay_DailySpecials={selectedDay_DailySpecials}
-                setAvailableToday_DailySpecials={setAvailableToday_DailySpecials}
-                setSelectedDay_DailySpecials={setSelectedDay_DailySpecials}
-                >
-            </DailySpecialsAvailability>
-            <DrinksType drinkTypes={drinkTypes} setDrinkTypes={setDrinkTypes}></DrinksType>
-            <DrinkPrice 
-                maxPrice={maxDrinkPrice} 
-                discountWine={discountWine}
-                setMaxDrinkPrice={setMaxDrinkPrice}
-                setDiscountWine={setDiscountWine}>
+
+        <Modal show={filterView} onHide={() => setFilterView(false)} size="lg" centered>
+            <Modal.Header closeButton>
+                <Modal.Title>Filters</Modal.Title>
+            </Modal.Header>
+            {/* <div className="filter-menu border-2 rounded-bottom mr-0 filter-bar"  style={{ maxWidth: '18rem'}}>
+                <FilterHeader badgeCount={badgeCount} clearFilter={clearFilter} applyFilter={applyFilter}></FilterHeader>
+                <HappyHourAvailability 
+                    availableNow={availableNow_HappyHour} 
+                    selectedDay={selectedDay_HappyHour} 
+                    selectedTime={selectedTime_HappyHour}
+                    showValidation={showValidation_HappyHourAvailability} 
+                    setAvailableNow={setAvailableNow_HappyHour} 
+                    setSelectedDay={setSelectedDay_HappyHour} 
+                    setSelectedTime={setSelectedTime_HappyHour}>
+                </HappyHourAvailability>
+                <DailySpecialsAvailability
+                    availableToday_DailySpecials={availableToday_DailySpecials}
+                    selectedDay_DailySpecials={selectedDay_DailySpecials}
+                    setAvailableToday_DailySpecials={setAvailableToday_DailySpecials}
+                    setSelectedDay_DailySpecials={setSelectedDay_DailySpecials}
+                    >
+                </DailySpecialsAvailability>
+                <DrinksType drinkTypes={drinkTypes} setDrinkTypes={setDrinkTypes}></DrinksType>
+                <DrinkPrice 
+                    maxPrice={maxDrinkPrice} 
+                    discountWine={discountWine}
+                    setMaxDrinkPrice={setMaxDrinkPrice}
+                    setDiscountWine={setDiscountWine}>
+                    
+                </DrinkPrice>
+                <FoodPrice 
+                    maxPrice={maxFoodPrice}
+                    setMaxFoodPrice={setMaxFoodPrice}>
+                </FoodPrice>
                 
-            </DrinkPrice>
-            <FoodPrice 
-                maxPrice={maxFoodPrice}
-                setMaxFoodPrice={setMaxFoodPrice}>
-            </FoodPrice>
-            
-        </div>
+            </div> */}
+            <Modal.Body>
+            <Form>
+                <HappyHourAvailability 
+                    availableNow={availableNow_HappyHour} 
+                    selectedDay={selectedDay_HappyHour} 
+                    selectedTime={selectedTime_HappyHour}
+                    showValidation={showValidation_HappyHourAvailability} 
+                    setAvailableNow={setAvailableNow_HappyHour} 
+                    setSelectedDay={setSelectedDay_HappyHour} 
+                    setSelectedTime={setSelectedTime_HappyHour}>
+                </HappyHourAvailability>
+
+                <DailySpecialsAvailability
+                    availableToday_DailySpecials={availableToday_DailySpecials}
+                    selectedDay_DailySpecials={selectedDay_DailySpecials}
+                    setAvailableToday_DailySpecials={setAvailableToday_DailySpecials}
+                    setSelectedDay_DailySpecials={setSelectedDay_DailySpecials}>
+                </DailySpecialsAvailability>
+
+                <DrinksType drinkTypes={drinkTypes} setDrinkTypes={setDrinkTypes}></DrinksType>
+
+                <DrinkPrice 
+                    maxPrice={maxDrinkPrice} 
+                    discountWine={discountWine}
+                    setMaxDrinkPrice={setMaxDrinkPrice}
+                    setDiscountWine={setDiscountWine}>
+                    
+                </DrinkPrice>
+
+                <FoodPrice 
+                    maxPrice={maxFoodPrice}
+                    setMaxFoodPrice={setMaxFoodPrice}>
+                </FoodPrice>
+                
+            </Form>
+
+
+            </Modal.Body>
+
+
+            <Modal.Footer>
+                    <Col><Button variant="secondary" className='w-100 mb-2' onClick={clearFilter}>Clear</Button></Col>
+                    <Col><Button variant="primary" className='w-100 mb-2' onClick={applyFilter}>Apply</Button></Col>
+            </Modal.Footer>
+        </Modal>
+
     )
 }
 

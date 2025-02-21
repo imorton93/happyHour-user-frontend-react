@@ -1,11 +1,13 @@
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import FilterBar from "./FilterBar/FilterBar";
 import ListContainer from "./ListContainer";
-import OrderBy from "./OrderBy";
+import ButtonControls from "./ButtonControls";
 import { Restaurant } from "../types/Restaurant";
 import { useState } from "react";
 import { FilterObject } from "../types/FilterObject";
 import MapView from "./MapView";
+import FilterModal from "./FilterModal";
+import { BiSearch } from "react-icons/bi";
 
 const MainBody = ({ 
         restaurants,
@@ -23,10 +25,17 @@ const MainBody = ({
     const [filters, setFilters] = useState<FilterObject>({});
     const [orderBy, setOrderBy] = useState("alpha");
     const [mapView, setMapView] = useState(false);
+    const [filterView, setFilterView] = useState(false);
+
+    
+    //toggle Filter Modal
+    function toggleFilterView(){
+        setFilterView((prev) => !prev)
+    }
 
 
     //toggle map view
-    function toggleView(){
+    function toggleMapView(){
         setMapView((prev) => !prev);
     }
 
@@ -381,21 +390,41 @@ const MainBody = ({
         <Container style={{ height: '100%'}}>
 
             <h2 className="mb-3">Vancity Happy Hour</h2>
-            <Row>
 
-                <Col sm={8}>
-                    {/* <OrderBy/> */}
+            <Row>
+                <Col style={{ height: '100%'}} xs={12} md={3}>
+                    
                 </Col>
-                <Col sm={4}>
-                    <Button onClick={toggleView}>
-                        {mapView ? 'List View' : 'Map View'}
-                    </Button>
+                <Col style={{ height: '100%'}} xs={12} md={9}>
+                    <Form.Group controlId="searchKeyword" className=" mt-2 mb-2">
+                    <InputGroup className="search-bar">
+                        <InputGroup.Text>
+                        <BiSearch size={20} />
+                        </InputGroup.Text>
+                        <Form.Control
+                        type="text"
+                        placeholder="Search by keyword..."
+                        />
+                    </InputGroup>
+                    </Form.Group>
                 </Col>
+            </Row>
+
+            <Row>
+                <Col style={{ height: '100%'}} xs={12} md={3}>
+                    
+                </Col>
+                <Col style={{ height: '100%'}} xs={12} md={9}>
+                    <ButtonControls mapView={mapView} toggleMapView={toggleMapView} toggleFilterView={toggleFilterView}/>
+                </Col>
+                
+                   
+                
                 
             </Row>
             <Row style={{ height: '100%'}}>
                 <Col style={{ height: '100%'}} xs={12} md={3}>
-                    <FilterBar handleFilterChange={handleFilterChange}/>
+                    
                 </Col>
                 <Col style={{ height: '100%'}} xs={12} md={9}>
                     {mapView ? (
@@ -407,9 +436,7 @@ const MainBody = ({
                 </Col>
             </Row>
             
-            
-            
-
+            <FilterBar filterView={filterView} setFilterView={setFilterView} handleFilterChange={handleFilterChange}/>
         </Container>
     );
 }

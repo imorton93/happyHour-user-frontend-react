@@ -2,6 +2,7 @@ import { Alert, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
 import { Restaurant } from "../types/Restaurant";
 import { useState } from "react";
 import DetailWindow from "./DetailWindow/DetailWindow";
+import RestaurantCard from "./RestaurantCard/RestaurantCard";
 
 
 
@@ -36,12 +37,13 @@ function ListContainer({
                         key={restaurant.yelpid}
                         className="bg-transparent border-0"
                         >
-                        <Card className="p-0 bg-info card-hover" onClick={() => handleSelectedRestaurant(restaurant)} style={{ cursor: "pointer"}}>
+                        {/* <Card className="p-0 bg-info card-hover" onClick={() => handleSelectedRestaurant(restaurant)} style={{ cursor: "pointer"}}>
                             <Card.Body className="p-0">
                                 <Card.Title className="p-0">{restaurant.name}</Card.Title>
                                 <Card.Text className="p-0">{restaurant.address} - {restaurant.city}</Card.Text>
                             </Card.Body>
-                        </Card>
+                        </Card> */}
+                        <RestaurantCard restaurant={restaurant} handleSelectedRestaurant={handleSelectedRestaurant}/>
                     </ListGroup.Item>
                     ))}
                 </ListGroup>

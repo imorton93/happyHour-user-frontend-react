@@ -24,10 +24,9 @@ function DrinksType({
     }
 
     return (
-        <Accordion className="rounded-0 p-0">
-          <Accordion.Header className="filterHeader text-start">Drink Type</Accordion.Header>
-            <Accordion.Body className="bg-dark bg-gradient">
-              <Form>
+        
+              <Form className="border-bottom mb-3 pb-3">
+                <h5 className="centered">Drink Types</h5>
                 {drinkTypes.map((obj: {name: string; isChecked:boolean}) => ( 
                     <Form.Check
                     type="checkbox"
@@ -36,12 +35,10 @@ function DrinksType({
                     onChange={(e) => handleCheckboxChange(e.target.name)}
                     checked={obj.isChecked}
                     key= {obj.name}
-                    className="text-start text-white"
+                    className="text-start"
                   />
                 ))}
               </Form>
-            </Accordion.Body>
-        </Accordion>
     )
 }
 
