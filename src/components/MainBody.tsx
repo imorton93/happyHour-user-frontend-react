@@ -1,32 +1,34 @@
-import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
+import { Container, Form, InputGroup, Row } from "react-bootstrap";
 import FilterBar from "./FilterBar/FilterBar";
 import ListContainer from "./ListContainer";
 import ButtonControls from "./ButtonControls";
 import { Restaurant } from "../types/Restaurant";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FilterObject } from "../types/FilterObject";
-import MapView from "./MapView";
-import FilterModal from "./FilterModal";
+import MapView from "./MapView/MapView";
 import { BiSearch } from "react-icons/bi";
 
 const MainBody = ({ 
         restaurants,
         filteredRestaurants,
         setFilteredRestaurants,
+        orderBy,
+        setOrderBy
     }:
     {
         restaurants: Restaurant[];
         filteredRestaurants: Restaurant[];
-        setFilteredRestaurants: React.Dispatch<React.SetStateAction<Restaurant[]>>
+        setFilteredRestaurants: React.Dispatch<React.SetStateAction<Restaurant[]>>;
+        orderBy: string;
+        setOrderBy: React.Dispatch<React.SetStateAction<string>>;
     }) => {
 
-    
+    const [badgeCount, setBadgeCount] = useState(0);
     const [searchQuery, setSearchQuery] = useState("");
     const [filters, setFilters] = useState<FilterObject>({});
-    const [orderBy, setOrderBy] = useState("alpha");
+    
     const [mapView, setMapView] = useState(false);
     const [filterView, setFilterView] = useState(false);
-
     
     //toggle Filter Modal
     function toggleFilterView(){
@@ -47,27 +49,8 @@ const MainBody = ({
         filterData(newFilters);
     }
 
-    function getMaxDrinkPrice(restaurant: Restaurant) : number{
-        let max = 0;
-        if(restaurant.deals.happyHour.hasDeals){
-            restaurant.deals.happyHour.drinks.forEach((drink) => {
-                if(drink.price > max){
-                    max = drink.price;
-                }
-            })
-        }
-        return max;
-    }
-
-    function filterMinDrinkPrice(minPrice: any, restaurants: Restaurant[]): Restaurant[]{
-
-        return restaurants.filter(restaurant => {
-            return minPrice <= getMaxDrinkPrice(restaurant);
-        });
-    }
-
     function getMinDrinkPrice(restaurant: Restaurant): number{
-        let min = 9999999;
+        let min = Number.MAX_VALUE;
         if(restaurant.deals.happyHour.hasDeals){
             restaurant.deals.happyHour.drinks.forEach((drink) => {
                 if(drink.price < min){
@@ -85,27 +68,9 @@ const MainBody = ({
         })
     }
 
-    function getMaxFoodPrice(restaurant: Restaurant) : number {
-        let max = 0;
-        if(restaurant.deals.happyHour.hasDeals){
-            restaurant.deals.happyHour.food.forEach((food) => {
-                if(food.price > max){
-                    max = food.price;
-                }
-            })
-        }
-        return max;
-    }
-
-    function filterMinFoodPrice(minPrice: any, restaurants: Restaurant[]): Restaurant[]{
-        return restaurants.filter(restaurant => {
-            return minPrice <= getMaxFoodPrice(restaurant);
-        })
-    }
-
     //Gets the minimum food price for that restaurants happy hour
     function getMinFoodPrice(restaurant: Restaurant) : number {
-        let min = 9999999;
+        let min = Number.MAX_VALUE;
         if(restaurant.deals.happyHour.hasDeals){
             restaurant.deals.happyHour.food.forEach((food) => {
                 if(food.price < min){
@@ -342,14 +307,8 @@ const MainBody = ({
         let restaurantsCopy: Restaurant[] = [...restaurants];
         Object.keys(newFilters).forEach((key) => {
             switch (key) {
-                case "minDrinkPrice":
-                    restaurantsCopy = filterMinDrinkPrice(newFilters[key], restaurantsCopy);
-                    break;
                 case "maxDrinkPrice":
                     restaurantsCopy = filterMaxDrinkPrice(newFilters[key], restaurantsCopy);
-                    break;
-                case "minFoodPrice":
-                    restaurantsCopy = filterMinFoodPrice(newFilters[key], restaurantsCopy);
                     break;
                 case "maxFoodPrice":
                     restaurantsCopy = filterMaxFoodPrice(newFilters[key], restaurantsCopy);
@@ -387,16 +346,12 @@ const MainBody = ({
 
 
     return (
-        <Container style={{ height: '100%'}}>
+        <Container style={{ height: '100%', maxWidth: '800px'}}>
 
             <h2 className="mb-3">Vancity Happy Hour</h2>
 
             <Row>
-                <Col style={{ height: '100%'}} xs={12} md={3}>
-                    
-                </Col>
-                <Col style={{ height: '100%'}} xs={12} md={9}>
-                    <Form.Group controlId="searchKeyword" className=" mt-2 mb-2">
+                <Form.Group controlId="searchKeyword" className=" mt-2 mb-2">
                     <InputGroup className="search-bar">
                         <InputGroup.Text>
                         <BiSearch size={20} />
@@ -407,36 +362,21 @@ const MainBody = ({
                         />
                     </InputGroup>
                     </Form.Group>
-                </Col>
             </Row>
 
             <Row>
-                <Col style={{ height: '100%'}} xs={12} md={3}>
-                    
-                </Col>
-                <Col style={{ height: '100%'}} xs={12} md={9}>
-                    <ButtonControls mapView={mapView} toggleMapView={toggleMapView} toggleFilterView={toggleFilterView}/>
-                </Col>
-                
-                   
-                
-                
+                <ButtonControls orderBy={orderBy} setOrderBy={setOrderBy} mapView={mapView} toggleMapView={toggleMapView} toggleFilterView={toggleFilterView} badgeCount={badgeCount}/>
             </Row>
+
             <Row style={{ height: '100%'}}>
-                <Col style={{ height: '100%'}} xs={12} md={3}>
-                    
-                </Col>
-                <Col style={{ height: '100%'}} xs={12} md={9}>
-                    {mapView ? (
+                {mapView ? (
                         <MapView restaurants={filteredRestaurants}></MapView>
                     ) : (
                         <ListContainer restaurants={filteredRestaurants} />
                     )}
-                    
-                </Col>
             </Row>
             
-            <FilterBar filterView={filterView} setFilterView={setFilterView} handleFilterChange={handleFilterChange}/>
+            <FilterBar filterView={filterView} setFilterView={setFilterView} handleFilterChange={handleFilterChange} setBadgeCount={setBadgeCount}/>
         </Container>
     );
 }

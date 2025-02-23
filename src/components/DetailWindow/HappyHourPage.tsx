@@ -132,26 +132,34 @@ function HappyHourPage({
                 <HappyHourTimes key={uuidv4()} allDay={time.allDay} from={time.from} to={time.to} dayStretches={time.dayStretches} everyDay={time.everyDay}/>
             ))}
 
-            <h5>Drinks</h5>
-            <Row className="g-4">
-                {drinks?.map((item) =>(
-                    <Col key={uuidv4()} xs={12} sm={6} md={4} lg={3}>
-                        {/* xs={12} -> 1 per row, sm=6 -> 2 per row, md=4 -> 3 per row, lg={3} -> 4 per row */}
-                        <ItemCard name={item.name} price={item.price} description={item.description}></ItemCard>
-                    </Col>
-                ))}
-            </Row>
+            {drinks.length > 0 && (
+            <>
+                <h5>Drinks</h5>
+                <Row className="g-4">
+                    {drinks?.map((item) =>(
+                        <Col key={uuidv4()} xs={12} sm={6} md={4} lg={3}>
+                            {/* xs={12} -> 1 per row, sm=6 -> 2 per row, md=4 -> 3 per row, lg={3} -> 4 per row */}
+                            <ItemCard name={item.name} price={item.price} description={item.description}></ItemCard>
+                        </Col>
+                    ))}
+                </Row>
+            </>
+            )}
 
             <br></br>
-            <h5>Food</h5>
-            <Row className="g-4">
-                {food?.map((item) =>(
-                    <Col key={uuidv4()} xs={12} sm={6} md={4} lg={3}>
-                        {/* xs={12} -> 1 per row, sm=6 -> 2 per row, md=4 -> 3 per row, lg={3} -> 4 per row */}
-                        <ItemCard name={item.name} price={item.price} description={item.description}></ItemCard>
-                    </Col>
-                ))}
-            </Row>
+            {food.length > 0 && (
+            <>
+                <h5>Food</h5>
+                <Row className="g-4">
+                    {food?.map((item) =>(
+                        <Col key={uuidv4()} xs={12} sm={6} md={4} lg={3}>
+                            {/* xs={12} -> 1 per row, sm=6 -> 2 per row, md=4 -> 3 per row, lg={3} -> 4 per row */}
+                            <ItemCard name={item.name} price={item.price} description={item.description}></ItemCard>
+                        </Col>
+                    ))}
+                </Row>
+            </>
+            )}
         </Container>
     )
 }

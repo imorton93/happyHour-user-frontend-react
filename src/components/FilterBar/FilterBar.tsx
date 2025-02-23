@@ -14,14 +14,15 @@ function dollarsToCents(amount: number): number {
 }
 
 
-function FilterBar({ handleFilterChange, filterView, setFilterView }:
+function FilterBar({ handleFilterChange, filterView, setFilterView, setBadgeCount }:
     {
         handleFilterChange: (newFilters: FilterObject) => void;
         filterView: boolean;
         setFilterView: React.Dispatch<React.SetStateAction<boolean>>;
+        setBadgeCount: React.Dispatch<React.SetStateAction<number>>
     }
 ) {
-    const [badgeCount, setBadgeCount] = useState(0);
+
     const [maxDrinkPrice, setMaxDrinkPrice] = useState<number | undefined>();
     const [maxFoodPrice, setMaxFoodPrice] = useState<number | undefined>();
     const [discountWine, setDiscountWine] = useState(false);
@@ -70,33 +71,57 @@ function FilterBar({ handleFilterChange, filterView, setFilterView }:
         handleFilterChange({});
     }
 
+
+    //creates all Filter Objects to be used
     function createFilters() : FilterObject{
         let newFilters: FilterObject = {};
+        //filter Count is used to update the badge
+        let filterCount: number = 0;
 
-        if(maxDrinkPrice !== undefined){ newFilters['maxDrinkPrice'] = dollarsToCents(maxDrinkPrice) }
+        if(maxDrinkPrice !== undefined){ 
+            newFilters['maxDrinkPrice'] = dollarsToCents(maxDrinkPrice);
+            filterCount++;
+        }
 
-        if(maxFoodPrice !== undefined){ newFilters['maxFoodPrice'] = dollarsToCents(maxFoodPrice) }
+        if(maxFoodPrice !== undefined){ 
+            newFilters['maxFoodPrice'] = dollarsToCents(maxFoodPrice);
+            filterCount++;
+        }
 
-        if(discountWine !== false){ newFilters['discountWine'] = true }
+        if(discountWine !== false){ 
+            newFilters['discountWine'] = true
+            filterCount++;
+        }
 
-        if(availableNow_HappyHour !== false){ newFilters['availableNow_HappyHour'] = true }
+        if(availableNow_HappyHour !== false){ 
+            newFilters['availableNow_HappyHour'] = true;
+            filterCount++;
+        }
 
         //both selectedDay and selectTime need to be set for valid filter
         if(selectedDay_HappyHour !== "" && selectedTime_HappyHour !== ""){ 
             newFilters['selectedDay_HappyHour'] = selectedDay_HappyHour;
-            newFilters['selectedTime_HappyHour'] = selectedTime_HappyHour
+            newFilters['selectedTime_HappyHour'] = selectedTime_HappyHour;
+            filterCount++;
         }
 
-        if(availableToday_DailySpecials !== false){ newFilters['availableToday_DailySpecials'] = availableToday_DailySpecials }
+        if(availableToday_DailySpecials !== false){ 
+            newFilters['availableToday_DailySpecials'] = availableToday_DailySpecials;
+            filterCount++; 
+        }
 
-        if(selectedDay_DailySpecials !== ""){ newFilters['selectedDay_DailySpecials'] = selectedDay_DailySpecials }
+        if(selectedDay_DailySpecials !== ""){ 
+            newFilters['selectedDay_DailySpecials'] = selectedDay_DailySpecials;
+            filterCount++; 
+        }
 
         drinkTypes.forEach((item) => {
             if(item.isChecked){
                 newFilters[item.name] = true;
+                filterCount++;
             }
         })
-
+        setBadgeCount(filterCount);
         return newFilters
     }
 

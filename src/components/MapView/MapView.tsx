@@ -6,10 +6,10 @@ import L from 'leaflet';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import { Button, Card, Container } from 'react-bootstrap';
-import { Restaurant } from '../types/Restaurant';
+import { Restaurant } from '../../types/Restaurant';
 import { useState } from 'react';
-import DetailWindow from './DetailWindow/DetailWindow';
-import RestaurantCard from './RestaurantCard/RestaurantCard';
+import DetailWindow from '../DetailWindow/DetailWindow';
+import MapRestaurantCard from './MapRestaurantCard';
 
 // Fix Leaflet marker icon issue in React
 const customIcon = new L.Icon({
@@ -56,14 +56,14 @@ export default function MapView({ restaurants }: { restaurants: Restaurant[]}) {
                 {restaurants.map((restaurant) => (
                     <Marker key={restaurant.yelpid} position={[restaurant.latitude, restaurant.longitude]} icon={customIcon}>
                     <Popup>
-                        {/* <RestaurantCard restaurant={restaurant}/>
+                        <MapRestaurantCard restaurant={restaurant}/>
                         <Button
                             variant="primary"
                             onClick={() => onSelectedRestaurant(restaurant.yelpid)}
                         >
                         See Deals
-                        </Button> */}
-                        <Card style={{ width: '18rem' }}>
+                        </Button>
+                        {/* <Card style={{ width: '18rem' }}>
                             <div>
                                 <h3>{restaurant.name}</h3>
                                 
@@ -75,7 +75,7 @@ export default function MapView({ restaurants }: { restaurants: Restaurant[]}) {
                                 </Button>
                                 
                             </div>
-                        </Card>
+                        </Card> */}
                     </Popup>
                     </Marker>
                 ))}

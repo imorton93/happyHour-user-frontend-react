@@ -61,4 +61,7 @@ export interface Restaurant {
             }[];
         };
     };
+
+    // Computed Fields 
+    cheapestPrices?: Record<string, number>
 }

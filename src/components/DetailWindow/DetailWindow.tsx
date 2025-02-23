@@ -2,7 +2,7 @@ import {  Container, Modal } from "react-bootstrap";
 import { Restaurant } from "../../types/Restaurant";
 import RadioButtonGroup from "./RadioButtonGroup";
 import HappyHourPage from "./HappyHourPage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DailySpecialsPage from "./DailySpecialsPage";
 import BusinessHours from "./BusinessHours";
 
@@ -22,6 +22,15 @@ function DetailWindow({
     //selectedOption used for Radio Buttons, if the user is looking at Happy Hour or Daily Specials
     const [selectedOption, setSelectedOption] = useState<string>("Happy Hour");
     const hasBothTypesDeals = selectedRestaurant?.deals.happyHour.hasDeals && selectedRestaurant?.deals.dailySpecials.hasDeals ? true : false;
+
+    useEffect(() => {
+        if(selectedRestaurant?.deals.happyHour.hasDeals){
+            setSelectedOption("Happy Hour");
+        } else{
+            setSelectedOption("Daily Specials");
+        }
+    }, [showModal])
+
 
 
     if (selectedRestaurant !== null) {
