@@ -20,7 +20,7 @@ function FoodPrice({
 
     return (
     
-        <Form className="border-bottom pb-3">
+        <Form.Group className="border-bottom pb-3">
           <h5 className="centered">Food Pricing</h5>
           {/* Max Price INput  */}
           <Form.Group className="mb-2">
@@ -34,7 +34,7 @@ function FoodPrice({
               min="0"
             />
           </Form.Group>
-        </Form>
+        </Form.Group>
       
     )
 }

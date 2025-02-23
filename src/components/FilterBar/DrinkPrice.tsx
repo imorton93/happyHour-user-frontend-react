@@ -24,7 +24,7 @@ function DrinkPrice({
     }
 
     return (
-        <Form className="border-bottom mb-3 pb-3">
+        <Form.Group className="border-bottom mb-3 pb-3">
           <h5 className="centered">Drink Pricing</h5>
             {/* Min Price Input
           <Form.Group className="mb-2">
@@ -62,7 +62,7 @@ function DrinkPrice({
                 className="text-start"
             />
           </Form.Group>
-        </Form>
+        </Form.Group>
     )
 }
 

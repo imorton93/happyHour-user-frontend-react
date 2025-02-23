@@ -63,19 +63,6 @@ export default function MapView({ restaurants }: { restaurants: Restaurant[]}) {
                         >
                         See Deals
                         </Button>
-                        {/* <Card style={{ width: '18rem' }}>
-                            <div>
-                                <h3>{restaurant.name}</h3>
-                                
-                                <Button
-                                    variant="primary"
-                                    onClick={() => onSelectedRestaurant(restaurant.yelpid)}
-                                >
-                                    Menu Deals
-                                </Button>
-                                
-                            </div>
-                        </Card> */}
                     </Popup>
                     </Marker>
                 ))}

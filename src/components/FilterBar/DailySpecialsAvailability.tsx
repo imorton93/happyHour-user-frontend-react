@@ -29,7 +29,7 @@ function DailySpecialsAvailability({
 
     return(
         
-        <Form className="border-bottom mb-3">
+        <Form.Group className="border-bottom mb-3">
           <h5 className="centered">Daily Specials Availability</h5>
           {/* Available Now Checkbox */}
           <Form.Group controlId="availableNowCheckbox">
@@ -59,7 +59,7 @@ function DailySpecialsAvailability({
               ))}
             </Form.Select>
           </Form.Group>
-        </Form>
+        </Form.Group>
     )
 }
 

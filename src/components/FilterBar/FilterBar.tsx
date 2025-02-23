@@ -1,25 +1,28 @@
 
 import { useState } from 'react';
-import FilterHeader from './FilterHeader';
 import DrinksType from './DrinksType';
 import DrinkPrice from './DrinkPrice';
 import FoodPrice from './FoodPrice';
 import HappyHourAvailability from './HappyHourAvailability';
 import { FilterObject  } from '../../types/FilterObject';
 import DailySpecialsAvailability from './DailySpecialsAvailability';
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
+import { Button, Col, Form, Modal } from 'react-bootstrap';
+import { Restaurant } from '../../types/Restaurant';
+import { useRestaurantCategories } from '../../hooks/useRestaurantCategories';
+import RestaurantType from './RestaurantType';
 
 function dollarsToCents(amount: number): number {
     return Math.round(amount * 100);
 }
 
 
-function FilterBar({ handleFilterChange, filterView, setFilterView, setBadgeCount }:
+function FilterBar({ handleFilterChange, filterView, setFilterView, setBadgeCount, restaurants }:
     {
         handleFilterChange: (newFilters: FilterObject) => void;
         filterView: boolean;
         setFilterView: React.Dispatch<React.SetStateAction<boolean>>;
-        setBadgeCount: React.Dispatch<React.SetStateAction<number>>
+        setBadgeCount: React.Dispatch<React.SetStateAction<number>>;
+        restaurants: Restaurant[];
     }
 ) {
 
@@ -32,6 +35,7 @@ function FilterBar({ handleFilterChange, filterView, setFilterView, setBadgeCoun
     const [availableToday_DailySpecials, setAvailableToday_DailySpecials] = useState(false);
     const [selectedDay_DailySpecials, setSelectedDay_DailySpecials] = useState("");
     const [showValidation_HappyHourAvailability, setShowValidation_HappyHourAvailability] = useState(false);
+    const [restaurantTypes, setRestaurantTypes] = useState<string[]>([]);
     const [drinkTypes, setDrinkTypes]= useState([
         {
             name: "Beer",
@@ -54,6 +58,7 @@ function FilterBar({ handleFilterChange, filterView, setFilterView, setBadgeCoun
             isChecked: false,
         }
     ]);
+    const categories = useRestaurantCategories(restaurants);
 
     function clearFilter(): undefined {
         setBadgeCount(0);
@@ -65,7 +70,8 @@ function FilterBar({ handleFilterChange, filterView, setFilterView, setBadgeCoun
         setSelectedTime_HappyHour("");
         setAvailableToday_DailySpecials(false);
         setSelectedDay_DailySpecials("");
-        setDrinkTypes(drinkTypes.map((item) => {return {...item, isChecked:false}}))
+        setDrinkTypes(drinkTypes.map((item) => {return {...item, isChecked:false}}));
+        setRestaurantTypes([]);
 
         //send empty filter object to reset filters
         handleFilterChange({});
@@ -113,6 +119,11 @@ function FilterBar({ handleFilterChange, filterView, setFilterView, setBadgeCoun
         if(selectedDay_DailySpecials !== ""){ 
             newFilters['selectedDay_DailySpecials'] = selectedDay_DailySpecials;
             filterCount++; 
+        }
+
+        if(restaurantTypes.length !== 0){
+            newFilters['restaurantTypes'] = restaurantTypes;
+            filterCount = filterCount + restaurantTypes.length; //adds number of restaruant types to filter count
         }
 
         drinkTypes.forEach((item) => {
@@ -180,38 +191,6 @@ function FilterBar({ handleFilterChange, filterView, setFilterView, setBadgeCoun
             <Modal.Header closeButton>
                 <Modal.Title>Filters</Modal.Title>
             </Modal.Header>
-            {/* <div className="filter-menu border-2 rounded-bottom mr-0 filter-bar"  style={{ maxWidth: '18rem'}}>
-                <FilterHeader badgeCount={badgeCount} clearFilter={clearFilter} applyFilter={applyFilter}></FilterHeader>
-                <HappyHourAvailability 
-                    availableNow={availableNow_HappyHour} 
-                    selectedDay={selectedDay_HappyHour} 
-                    selectedTime={selectedTime_HappyHour}
-                    showValidation={showValidation_HappyHourAvailability} 
-                    setAvailableNow={setAvailableNow_HappyHour} 
-                    setSelectedDay={setSelectedDay_HappyHour} 
-                    setSelectedTime={setSelectedTime_HappyHour}>
-                </HappyHourAvailability>
-                <DailySpecialsAvailability
-                    availableToday_DailySpecials={availableToday_DailySpecials}
-                    selectedDay_DailySpecials={selectedDay_DailySpecials}
-                    setAvailableToday_DailySpecials={setAvailableToday_DailySpecials}
-                    setSelectedDay_DailySpecials={setSelectedDay_DailySpecials}
-                    >
-                </DailySpecialsAvailability>
-                <DrinksType drinkTypes={drinkTypes} setDrinkTypes={setDrinkTypes}></DrinksType>
-                <DrinkPrice 
-                    maxPrice={maxDrinkPrice} 
-                    discountWine={discountWine}
-                    setMaxDrinkPrice={setMaxDrinkPrice}
-                    setDiscountWine={setDiscountWine}>
-                    
-                </DrinkPrice>
-                <FoodPrice 
-                    maxPrice={maxFoodPrice}
-                    setMaxFoodPrice={setMaxFoodPrice}>
-                </FoodPrice>
-                
-            </div> */}
             <Modal.Body>
             <Form>
                 <HappyHourAvailability 
@@ -221,30 +200,27 @@ function FilterBar({ handleFilterChange, filterView, setFilterView, setBadgeCoun
                     showValidation={showValidation_HappyHourAvailability} 
                     setAvailableNow={setAvailableNow_HappyHour} 
                     setSelectedDay={setSelectedDay_HappyHour} 
-                    setSelectedTime={setSelectedTime_HappyHour}>
-                </HappyHourAvailability>
+                    setSelectedTime={setSelectedTime_HappyHour}/>
 
                 <DailySpecialsAvailability
                     availableToday_DailySpecials={availableToday_DailySpecials}
                     selectedDay_DailySpecials={selectedDay_DailySpecials}
                     setAvailableToday_DailySpecials={setAvailableToday_DailySpecials}
-                    setSelectedDay_DailySpecials={setSelectedDay_DailySpecials}>
-                </DailySpecialsAvailability>
+                    setSelectedDay_DailySpecials={setSelectedDay_DailySpecials}/>
 
-                <DrinksType drinkTypes={drinkTypes} setDrinkTypes={setDrinkTypes}></DrinksType>
+                <RestaurantType restaurantTypes={restaurantTypes} categories={categories} setRestaurantTypes={setRestaurantTypes}/>
+
+                <DrinksType drinkTypes={drinkTypes} setDrinkTypes={setDrinkTypes}/>
 
                 <DrinkPrice 
                     maxPrice={maxDrinkPrice} 
                     discountWine={discountWine}
                     setMaxDrinkPrice={setMaxDrinkPrice}
-                    setDiscountWine={setDiscountWine}>
-                    
-                </DrinkPrice>
+                    setDiscountWine={setDiscountWine}/>
 
                 <FoodPrice 
                     maxPrice={maxFoodPrice}
-                    setMaxFoodPrice={setMaxFoodPrice}>
-                </FoodPrice>
+                    setMaxFoodPrice={setMaxFoodPrice}/>
                 
             </Form>
 

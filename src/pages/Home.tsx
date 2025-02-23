@@ -58,7 +58,6 @@ const Home = () => {
     }
 
     function sortByAZ(restaurants: Restaurant[]): Restaurant[]{
-        console.log('sort by name');
         const sorted = [...restaurants].sort((a, b) => a.name.localeCompare(b.name));
         return sorted;
     }
@@ -74,7 +73,6 @@ const Home = () => {
     }
 
     function sortByCheapestBeer(restaurants: Restaurant[]): Restaurant[]{
-        console.log('sort Cheapest Beer');
         return [...restaurants].sort((a,b) => {
             const priceA = a.cheapestPrices?.Beer ?? Number.MAX_VALUE;
             const priceB = b.cheapestPrices?.Beer ?? Number.MAX_VALUE;
@@ -83,7 +81,6 @@ const Home = () => {
     }
 
     function sortByCheapestWine(restaurants: Restaurant[]): Restaurant[]{
-        console.log('sort Cheapest Wine');
         return [...restaurants].sort((a,b) => {
             const priceA = a.cheapestPrices?.Wine ?? Number.MAX_VALUE;
             const priceB = b.cheapestPrices?.Wine ?? Number.MAX_VALUE;
@@ -92,7 +89,6 @@ const Home = () => {
     }
 
     function sortByCheapestCider(restaurants: Restaurant[]): Restaurant[]{
-        console.log('sort Cheapest Cider');
         return [...restaurants].sort((a,b) => {
             const priceA = a.cheapestPrices?.Cider ?? Number.MAX_VALUE;
             const priceB = b.cheapestPrices?.Cider ?? Number.MAX_VALUE;
@@ -101,7 +97,6 @@ const Home = () => {
     }
 
     function sortByCheapestCocktail(restaurants: Restaurant[]): Restaurant[]{
-        console.log('sort Cheapest Cocktail');
         return [...restaurants].sort((a,b) => {
             const priceA = a.cheapestPrices?.Cocktail ?? Number.MAX_VALUE;
             const priceB = b.cheapestPrices?.Cocktail ?? Number.MAX_VALUE;

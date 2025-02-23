@@ -303,6 +303,14 @@ const MainBody = ({
         })
     }
 
+
+    function filterByRestaurantTypes(restaurantTypes: string[], restaurants: Restaurant[]): Restaurant[]{
+        return restaurants.filter((restaurant) => 
+            restaurantTypes.every(category => restaurant.categories.includes(category))
+        );
+    }
+
+
     function filterData(newFilters: FilterObject){
         let restaurantsCopy: Restaurant[] = [...restaurants];
         Object.keys(newFilters).forEach((key) => {
@@ -324,6 +332,10 @@ const MainBody = ({
                     break;
                 case "selectedDay_DailySpecials":
                     restaurantsCopy = filterSpecialsForDay(newFilters[key], restaurantsCopy);
+                    break;
+                case "restaurantTypes":
+                    restaurantsCopy = filterByRestaurantTypes(newFilters[key], restaurantsCopy);
+                    console.log('Filter by restaurantTypes')
                     break;
                 case "selectedDay_HappyHour":
                     restaurantsCopy = filterHappyHourOnGivenDay(newFilters[key], newFilters["selectedTime_HappyHour"], restaurantsCopy);
@@ -376,7 +388,7 @@ const MainBody = ({
                     )}
             </Row>
             
-            <FilterBar filterView={filterView} setFilterView={setFilterView} handleFilterChange={handleFilterChange} setBadgeCount={setBadgeCount}/>
+            <FilterBar restaurants={restaurants} filterView={filterView} setFilterView={setFilterView} handleFilterChange={handleFilterChange} setBadgeCount={setBadgeCount}/>
         </Container>
     );
 }

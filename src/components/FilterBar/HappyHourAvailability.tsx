@@ -44,7 +44,7 @@ function HappyHourAvailability({
     return(
         
           
-          <Form className="border-bottom mb-3">
+          <Form.Group className="border-bottom mb-3">
             <h5 className="centered">Happy Hour Availability</h5>
             {/* Available Now Checkbox */}
             <Form.Group controlId="availableNowCheckbox">
@@ -89,7 +89,7 @@ function HappyHourAvailability({
               {showValidation && <div className="invalid-feedback">Please fill out both fields</div>}
 
             </Form.Group>
-          </Form>
+          </Form.Group>
     )
 }
 

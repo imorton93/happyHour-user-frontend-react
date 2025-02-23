@@ -25,7 +25,7 @@ function DrinksType({
 
     return (
         
-              <Form className="border-bottom mb-3 pb-3">
+              <Form.Group className="border-bottom mb-3 pb-3">
                 <h5 className="centered">Drink Types</h5>
                 {drinkTypes.map((obj: {name: string; isChecked:boolean}) => ( 
                     <Form.Check
@@ -38,7 +38,7 @@ function DrinksType({
                     className="text-start"
                   />
                 ))}
-              </Form>
+              </Form.Group>
     )
 }
 
