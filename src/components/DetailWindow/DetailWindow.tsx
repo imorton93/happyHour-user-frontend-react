@@ -47,6 +47,7 @@ function DetailWindow({
                         {hasBothTypesDeals && 
                             <RadioButtonGroup selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
                         }
+                    <hr/>
                     </Container>
                     {selectedOption === "Happy Hour" && 
                         <HappyHourPage selectedRestaurant={selectedRestaurant}/>

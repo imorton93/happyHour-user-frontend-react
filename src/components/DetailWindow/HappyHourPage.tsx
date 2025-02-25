@@ -127,6 +127,7 @@ function HappyHourPage({
 
     return(
         <Container>
+            
             <h3>Happy Hour</h3>
             {finalTimes.map((time) => (
                 <HappyHourTimes key={uuidv4()} allDay={time.allDay} from={time.from} to={time.to} dayStretches={time.dayStretches} everyDay={time.everyDay}/>
