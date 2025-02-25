@@ -1,4 +1,4 @@
-import { Container, Form, InputGroup, Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import FilterBar from "./FilterBar/FilterBar";
 import ListContainer from "./ListContainer";
 import ButtonControls from "./ButtonControls";
@@ -6,14 +6,15 @@ import { Restaurant } from "../types/Restaurant";
 import { useEffect, useState } from "react";
 import { FilterObject } from "../types/FilterObject";
 import MapView from "./MapView/MapView";
-import { BiSearch } from "react-icons/bi";
+import SearchBar from "./SearchBar";
 
 const MainBody = ({ 
         restaurants,
         filteredRestaurants,
         setFilteredRestaurants,
         orderBy,
-        setOrderBy
+        setOrderBy,
+        sortBy,
     }:
     {
         restaurants: Restaurant[];
@@ -21,6 +22,7 @@ const MainBody = ({
         setFilteredRestaurants: React.Dispatch<React.SetStateAction<Restaurant[]>>;
         orderBy: string;
         setOrderBy: React.Dispatch<React.SetStateAction<string>>;
+        sortBy: (sortString: string, restaurants: Restaurant[]) => Restaurant[];
     }) => {
 
     const [badgeCount, setBadgeCount] = useState(0);
@@ -29,6 +31,18 @@ const MainBody = ({
     
     const [mapView, setMapView] = useState(false);
     const [filterView, setFilterView] = useState(false);
+
+    //When the user changes the search query
+    useEffect(() => {
+        handleFilterChange(filters);
+        
+    }, [searchQuery])
+
+    // //when the filters change, update the data
+    // useEffect(() => {
+    //     filterData(filters);
+    // }, [filters])
+    
     
     //toggle Filter Modal
     function toggleFilterView(){
@@ -43,8 +57,15 @@ const MainBody = ({
 
     //initially called by Apply button in FilterBar component
     function handleFilterChange(newFilters: FilterObject){
+        //makes sure that searchQuery is kept in filters
+        
+        newFilters['searchQuery'] = searchQuery;
+        
+        
+
         //sets filters in useState
         setFilters(newFilters);
+
         //calls function to filter the restaurants
         filterData(newFilters);
     }
@@ -310,11 +331,25 @@ const MainBody = ({
         );
     }
 
+    function filterByName(searchWord: string, restaurants: Restaurant[]){
+        if(searchWord !== ""){
+            return restaurants.filter((restaurant) => {
+                return restaurant.name.toLowerCase().includes(searchWord.toLowerCase());
+            })
+        } else{
+            return restaurants;
+        }
+        
+    }
+
 
     function filterData(newFilters: FilterObject){
         let restaurantsCopy: Restaurant[] = [...restaurants];
         Object.keys(newFilters).forEach((key) => {
             switch (key) {
+                case "searchQuery":
+                    restaurantsCopy = filterByName(newFilters[key], restaurantsCopy);
+                    break;
                 case "maxDrinkPrice":
                     restaurantsCopy = filterMaxDrinkPrice(newFilters[key], restaurantsCopy);
                     break;
@@ -353,6 +388,8 @@ const MainBody = ({
                     break;
             }
         })
+        restaurantsCopy = sortBy(orderBy, restaurantsCopy);
+
         setFilteredRestaurants(restaurantsCopy);
     }
 
@@ -363,17 +400,7 @@ const MainBody = ({
             <h2 className="mb-3">Vancity Happy Hour</h2>
 
             <Row>
-                <Form.Group controlId="searchKeyword" className=" mt-2 mb-2">
-                    <InputGroup className="search-bar">
-                        <InputGroup.Text>
-                        <BiSearch size={20} />
-                        </InputGroup.Text>
-                        <Form.Control
-                        type="text"
-                        placeholder="Search by keyword..."
-                        />
-                    </InputGroup>
-                    </Form.Group>
+                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
             </Row>
 
             <Row>

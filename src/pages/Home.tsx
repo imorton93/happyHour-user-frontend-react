@@ -127,7 +127,9 @@ const Home = () => {
 
     return (
         <div style={{ height: '100%'}}>
-            <MainBody orderBy={orderBy} setOrderBy={setOrderBy} restaurants={restaurants} filteredRestaurants={filteredRestaurants} setFilteredRestaurants={setFilteredRestaurants}/>
+            {restaurants.length > 0 && (
+            <MainBody sortBy={sortBy} orderBy={orderBy} setOrderBy={setOrderBy} restaurants={restaurants} filteredRestaurants={filteredRestaurants} setFilteredRestaurants={setFilteredRestaurants}/>
+        )}
         </div>
     );
 };
