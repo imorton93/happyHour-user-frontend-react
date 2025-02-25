@@ -127,15 +127,23 @@ function HappyHourPage({
 
     return(
         <Container>
+            <Row >
+                <Col className="d-flex justify-content-start">
+                    <h3 className="px-2 my-1">Happy Hour</h3>
+                </Col>
+                <Col>
+                    {finalTimes.map((time) => (
+                        <HappyHourTimes key={uuidv4()} allDay={time.allDay} from={time.from} to={time.to} dayStretches={time.dayStretches} everyDay={time.everyDay}/>
+                    ))}
+                </Col>
             
-            <h3>Happy Hour</h3>
-            {finalTimes.map((time) => (
-                <HappyHourTimes key={uuidv4()} allDay={time.allDay} from={time.from} to={time.to} dayStretches={time.dayStretches} everyDay={time.everyDay}/>
-            ))}
+            </Row>
+            
+            <hr/>
 
             {drinks.length > 0 && (
             <>
-                <h5>Drinks</h5>
+                <h5 className="mb-3 px-2 my-1">Drinks</h5>
                 <Row className="g-4">
                     {drinks?.map((item) =>(
                         <Col key={uuidv4()} xs={12} sm={6} md={4} lg={3}>
@@ -150,7 +158,7 @@ function HappyHourPage({
             <br></br>
             {food.length > 0 && (
             <>
-                <h5>Food</h5>
+                <h5 className="mb-3 px-2 my-1">Food</h5>
                 <Row className="g-4">
                     {food?.map((item) =>(
                         <Col key={uuidv4()} xs={12} sm={6} md={4} lg={3}>

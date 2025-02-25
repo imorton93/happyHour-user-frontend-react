@@ -16,11 +16,11 @@ function SpecialDayTimes({ selectedRestaurant, weekIndex, index }:
 
     if(allDay){
         return (
-            <p>All Day</p>
+            <p className="px-2 my-1 d-flex justify-content-end">All Day</p>
         )
     } else{
         return(
-            <p>{from}-{to}</p>
+            <p className="px-2 my-1 d-flex justify-content-end">{from}-{to}</p>
         )
     }
 }

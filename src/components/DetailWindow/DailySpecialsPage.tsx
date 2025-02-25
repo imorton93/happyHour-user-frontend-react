@@ -22,7 +22,9 @@ function DailySpecialsPage({ selectedRestaurant }:
 
     return(
         <Container>
-            <h3>Daily Specials</h3>
+            <h3 className="px-2 my-1">Daily Specials</h3>
+
+
             {intDays.map((item) => (
                 <SpecialDays key={uuidv4()} selectedRestaurant={selectedRestaurant} weekDay={item} />
             ))}

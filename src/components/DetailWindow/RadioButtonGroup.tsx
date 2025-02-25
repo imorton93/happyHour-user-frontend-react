@@ -13,7 +13,7 @@ function RadioButtonGroup({ selectedOption, setSelectedOption }:
 
 
     return(
-        <Form>
+        <Form className="d-flex justify-content-center">
             <div className="d-flex">
                 <Form.Check
                     type="radio"

@@ -1,4 +1,5 @@
-import { Card } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
+import "./DetailWindow.css";
 
 //takes the price of the item which is given in cents ex. 3454
 // returns the number in form of dollars ex. 34.54
@@ -21,10 +22,20 @@ function ItemCard({ name, price, description}:
     const priceString = price !== 0 ? convertPrice(price) : "";
 
     return (
-        <Card>
-            <Card.Title>{name}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">{priceString}</Card.Subtitle>
-            <Card.Text>{description}</Card.Text>
+        <Card className="custom-card mx-3 border-0">
+            <Row className="align-items-center">
+                <Col xs={8}>
+                    <Card.Title className="custom-card-title">{name}</Card.Title>
+                    
+                </Col>
+                <Col xs={4} className="d-flex justify-content-end">
+                    <Card.Subtitle className="pt-2 custom-card-price">{priceString}</Card.Subtitle>
+                </Col>
+            </Row>
+            <Row>
+                <Card.Text className="custom-card-text"><i>{description}</i></Card.Text>
+            </Row>
+            
         </Card>
     )
 }

@@ -1,4 +1,6 @@
+import { Accordion, ListGroup } from "react-bootstrap";
 import { Restaurant } from "../../types/Restaurant";
+import "./DetailWindow.css";
 
 
 
@@ -25,12 +27,22 @@ function BusinessHours({ selectedRestaurant }:
     
     return (
         <>
-            {weekdayHoursString.map((item) => {
-                if(item !== ""){
-                    return ( <p key={item}>{item}</p>)
-                }
-                
-            })}
+            <Accordion className="custom-accordion">
+                <Accordion.Item eventKey="0">
+                    <Accordion.Header>Hours</Accordion.Header>
+                    <Accordion.Body>
+                        <ListGroup variant="flush" className="custom-listgroup">
+                            {weekdayHoursString.map((item) => {
+                                if(item !== ""){
+                                    return (<ListGroup.Item key={item} className="custom-listitem">{item}</ListGroup.Item>)
+                                }
+                                
+                            })}
+                        </ListGroup>
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
+            
         </>
     )
 }

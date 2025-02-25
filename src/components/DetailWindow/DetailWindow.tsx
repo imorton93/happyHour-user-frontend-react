@@ -1,10 +1,11 @@
-import {  Container, Modal } from "react-bootstrap";
+import {  Col, Container, Modal, Row } from "react-bootstrap";
 import { Restaurant } from "../../types/Restaurant";
 import RadioButtonGroup from "./RadioButtonGroup";
 import HappyHourPage from "./HappyHourPage";
 import { useEffect, useState } from "react";
 import DailySpecialsPage from "./DailySpecialsPage";
 import BusinessHours from "./BusinessHours";
+import './DetailWindow.css';
 
 
 
@@ -35,19 +36,28 @@ function DetailWindow({
 
     if (selectedRestaurant !== null) {
         return (
-            <Modal show={showModal} onHide={() => setShowModal(false)} fullscreen={true} size="lg" centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>{selectedRestaurant.name}</Modal.Title>
-                </Modal.Header>
+            <Modal className="custom-modal" show={showModal} onHide={() => setShowModal(false)} fullscreen={true} size="lg" centered>
                 <Modal.Body>
+                    {/* close button  */}
+                    <button className="modal-close-btn" onClick={() => setShowModal(false)}>&times;</button>
+
+
                     <Container>
-                        <p>Address: {selectedRestaurant.address}, {selectedRestaurant.city}, {selectedRestaurant.province}</p>
-                        <p>Website: <a href={selectedRestaurant.url} target="_blank">{selectedRestaurant.url}</a></p>
+                        <h1 className="modal-title">{selectedRestaurant.name}</h1>
+                        <hr className="custom-hr"/>
+                        <Row>
+                            <Col>
+                                <p>Address: {selectedRestaurant.address}, {selectedRestaurant.city}, {selectedRestaurant.province}</p>
+                            </Col>
+                            <Col>
+                                <p>Website: <a href={selectedRestaurant.url} target="_blank" className="modal-link">{selectedRestaurant.url}</a></p>
+                            </Col>
+                        </Row>
                         <BusinessHours selectedRestaurant={selectedRestaurant}></BusinessHours>
                         {hasBothTypesDeals && 
                             <RadioButtonGroup selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
                         }
-                    <hr/>
+                    <hr className="custom-hr"/>
                     </Container>
                     {selectedOption === "Happy Hour" && 
                         <HappyHourPage selectedRestaurant={selectedRestaurant}/>
