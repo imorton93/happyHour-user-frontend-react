@@ -11,6 +11,7 @@ import { useState } from 'react';
 import DetailWindow from '../DetailWindow/DetailWindow';
 import MapRestaurantCard from './MapRestaurantCard';
 
+
 // Fix Leaflet marker icon issue in React
 const customIcon = new L.Icon({
   iconUrl: markerIcon,
@@ -46,7 +47,7 @@ export default function MapView({ restaurants }: { restaurants: Restaurant[]}) {
 
 
   return (
-    <Container className="border border-success h-75 bg-dark bg-gradient" style={{ overflowY: "auto"}}>
+    <Container className="border border-success bg-dark bg-gradient">
         
                 <MapContainer center={[49.2827, -123.1207]} zoom={13} minZoom={10} maxZoom={16} style={{ height: '100%', width: '100%' }}>
                 <TileLayer

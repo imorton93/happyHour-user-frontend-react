@@ -36,7 +36,7 @@ function DetailWindow({
 
     if (selectedRestaurant !== null) {
         return (
-            <Modal className="custom-modal" show={showModal} onHide={() => setShowModal(false)} fullscreen={true} size="lg" centered>
+            <Modal className="custom-modal" show={showModal} onHide={() => setShowModal(false)} dialogClassName="custom-modal-dialog" centered>
                 <Modal.Body>
                     {/* close button  */}
                     <button className="modal-close-btn" onClick={() => setShowModal(false)}>&times;</button>

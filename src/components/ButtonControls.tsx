@@ -15,8 +15,8 @@ function ButtonControls({ mapView, toggleMapView, toggleFilterView, badgeCount, 
     return(
         <Container className="my-3">
             <ButtonGroup className="w-100 gap-2">
-                <Dropdown as={ButtonGroup} className="rounded w-100" variant="primary">
-                    <Dropdown.Toggle variant="primary" className="w-100 rounded" disabled={mapView}>
+                <Dropdown as={ButtonGroup} className=" rounded w-100" variant="primary">
+                    <Dropdown.Toggle variant="primary" className="py-3 w-100 rounded" disabled={mapView}>
                         Sort: {orderBy}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
@@ -28,8 +28,8 @@ function ButtonControls({ mapView, toggleMapView, toggleFilterView, badgeCount, 
                         <Dropdown.Item onClick={() => setOrderBy('Cheapest Cocktail')}>Cheapest Cocktail</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
-                <Button className="rounded w-100" variant="primary" onClick={toggleFilterView}>Filter  <Badge bg="secondary">{badgeCount}</Badge></Button>
-                <Button className="rounded w-100" variant="primary" onClick={toggleMapView}>{mapView ? 'List View' : 'Map View'}</Button>
+                <Button className="py-3 rounded w-100" variant="primary" onClick={toggleFilterView}>Filter  <Badge bg="secondary">{badgeCount}</Badge></Button>
+                <Button className="py-3 rounded w-100" variant="primary" onClick={toggleMapView}>{mapView ? 'List View' : 'Map View'}</Button>
             </ButtonGroup>
         </Container>
     )

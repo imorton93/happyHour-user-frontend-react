@@ -130,7 +130,7 @@ function RestaurantCard({ restaurant, handleSelectedRestaurant }: { restaurant: 
                 {/* Restaurant Details  */}
                 <div className="restaurant-details">
                     <h5>{restaurant.name}</h5>
-                    <p className="text-muted">{restaurant.address}, {restaurant.city}</p>
+                    <p>{restaurant.address}, {restaurant.city}</p>
                     {/* Categories  */}
                     {restaurant.categories.map((category, index) => (
                         <Badge key={index} pill className="category-badge">
@@ -141,12 +141,12 @@ function RestaurantCard({ restaurant, handleSelectedRestaurant }: { restaurant: 
                 {/* Specials & Happy Hour  */}
                 <div className="restaurant-status">
                     <p>
-                        <strong>Daily Specials Today:</strong>{" "}
-                        {filterSpecialsAvailableToday(restaurant) ? <FaCheck className='check-icon'/> : <FaTimes className="cross-icon"/>}
-                    </p>
-                    <p>
                         <strong>Happy Hour on Now:</strong>{" "}
                         {availableNowHappyHour(restaurant) ? <FaCheck className='check-icon'/> : <FaTimes className="cross-icon"/>}
+                    </p>
+                    <p>
+                        <strong>Daily Specials Today:</strong>{" "}
+                        {filterSpecialsAvailableToday(restaurant) ? <FaCheck className='check-icon'/> : <FaTimes className="cross-icon"/>}
                     </p>
                 </div>
             </div>

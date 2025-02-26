@@ -1,4 +1,4 @@
-import { Alert, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
+import { Alert, Col, Container, ListGroup, Row } from "react-bootstrap";
 import { Restaurant } from "../types/Restaurant";
 import { useState } from "react";
 import DetailWindow from "./DetailWindow/DetailWindow";
@@ -23,7 +23,7 @@ function ListContainer({
 
 
     return(
-    <Container className="border border-success h-75 bg-dark bg-gradient" style={{ overflowY: "auto"}}>
+    <Container className="mb-5" >
         <Row>
             <Col>
 

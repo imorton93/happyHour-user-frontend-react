@@ -23,13 +23,13 @@ function ItemCard({ name, price, description}:
 
     return (
         <Card className="custom-card mx-3 border-0">
-            <Row className="align-items-center">
+            <Row className="align-items-start">
                 <Col xs={8}>
                     <Card.Title className="custom-card-title">{name}</Card.Title>
                     
                 </Col>
-                <Col xs={4} className="d-flex justify-content-end">
-                    <Card.Subtitle className="pt-2 custom-card-price">{priceString}</Card.Subtitle>
+                <Col xs={4} className="pt-2 d-flex justify-content-end justify-content-start">
+                    <Card.Subtitle className="custom-card-price">{priceString}</Card.Subtitle>
                 </Col>
             </Row>
             <Row>

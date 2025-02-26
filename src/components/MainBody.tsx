@@ -395,19 +395,21 @@ const MainBody = ({
 
 
     return (
-        <Container style={{ height: '100%', maxWidth: '800px'}}>
+        <Container style={{ maxWidth: '800px'}}>
+            <div className="filter-container" style={{ position: 'sticky', top: '0', zIndex: '1000', paddingBottom: '10px' }}>
+                <Row>
+                    <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+                </Row>
 
-            <h2 className="mb-3">Vancity Happy Hour</h2>
+                <Row>
+                    <ButtonControls orderBy={orderBy} setOrderBy={setOrderBy} mapView={mapView} toggleMapView={toggleMapView} toggleFilterView={toggleFilterView} badgeCount={badgeCount}/>
+                </Row>
 
-            <Row>
-                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
-            </Row>
+                <hr className="mb-0 pb-0"/>
 
-            <Row>
-                <ButtonControls orderBy={orderBy} setOrderBy={setOrderBy} mapView={mapView} toggleMapView={toggleMapView} toggleFilterView={toggleFilterView} badgeCount={badgeCount}/>
-            </Row>
+            </div>
 
-            <Row style={{ height: '100%'}}>
+            <Row style={{ minHeight: "65vh"}}>
                 {mapView ? (
                         <MapView restaurants={filteredRestaurants}></MapView>
                     ) : (

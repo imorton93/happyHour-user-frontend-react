@@ -31,6 +31,11 @@
     padding: 20px;
 }
 
+.custom-modal .modal-dialog {
+    max-width: 1228px;
+    width: 100%;
+}
+
 
 
 /* hours accordion  */

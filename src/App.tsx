@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <Navbar fixed="top" bg="dark" variant="dark" className='p-2'>
+      <Navbar bg="dark" variant="dark" className='p-2'>
         <Navbar.Brand className='pl-3' href="#">Vancity Happy Hour</Navbar.Brand>
       </Navbar>
       <Routes>

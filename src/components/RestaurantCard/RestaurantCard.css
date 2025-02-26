@@ -1,9 +1,20 @@
-.restaurant-card {
+.card.restaurant-card {
     padding: 15px;
     margin: 5px 0;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: #2C2C2C; 
+    color: #E0E0E0; 
+    border: 1px solid #444; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     cursor: pointer;
+}
+
+.card-hover {
+    transition: transform 0.2s ease-in-out;
+}
+
+.card-hover:hover {
+    transform: scale(1.02);
 }
 
 .restaurant-image img {
