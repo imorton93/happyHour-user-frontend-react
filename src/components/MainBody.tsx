@@ -1,4 +1,4 @@
-import { Container, Row } from "react-bootstrap";
+import { Accordion, Button, Container, Form, Row } from "react-bootstrap";
 import FilterBar from "./FilterBar/FilterBar";
 import ListContainer from "./ListContainer";
 import ButtonControls from "./ButtonControls";
@@ -21,6 +21,9 @@ const MainBody = ({
         orderBy,
         setOrderBy,
         sortBy,
+        setPostalCode,
+        postalCode,
+        geoError,
     }:
     {
         restaurants: Restaurant[];
@@ -29,12 +32,14 @@ const MainBody = ({
         orderBy: string;
         setOrderBy: React.Dispatch<React.SetStateAction<string>>;
         sortBy: (sortString: string, restaurants: Restaurant[]) => Restaurant[];
+        setPostalCode: React.Dispatch<React.SetStateAction<string>>;
+        postalCode: string;
+        geoError: string | null;
     }) => {
 
     const [badgeCount, setBadgeCount] = useState(0);
     const [searchQuery, setSearchQuery] = useState("");
     const [filters, setFilters] = useState<FilterObject>({});
-    
     const [mapView, setMapView] = useState(false);
     const [filterView, setFilterView] = useState(false);
 
@@ -207,10 +212,48 @@ const MainBody = ({
         setFilteredRestaurants(restaurantsCopy);
     }
 
-
     return (
         <Container style={{ maxWidth: '800px'}}>
             <div className="filter-container" style={{ position: 'sticky', top: '0', zIndex: '1000', paddingBottom: '10px' }}>
+                <Row>
+                <div className="">
+                    <small className="d-block text-start">*Input postal code for better location accuracy on desktop.</small>
+
+                    <Accordion className="mt-2" style={{ maxWidth: "250px"}}>
+                        <Accordion.Item eventKey="0">
+                            <Accordion.Header >Input Postal Code</Accordion.Header>
+                            <Accordion.Body className="p-2">
+                                <Form>
+                                    <Form.Group 
+                                        controlId="postalCodeInput" 
+                                        className="d-flex align-items-center gap-2"
+                                    >
+                                        <span style={{ fontSize: "0.8rem" }}>Postal Code:</span>
+                                        <Form.Control
+                                            size="sm"
+                                            type="text"
+                                            placeholder="A1A 1A1"
+                                            value={postalCode}
+                                            maxLength={7}
+                                            onChange={(e) => setPostalCode(e.target.value)}
+                                            style={{ width: "200px" }}
+                                        />
+                                    </Form.Group>
+                                </Form>
+
+                                {/* Location Feedback */}
+                                {geoError && <p style={{ color: 'red', fontSize: '0.8rem' }}>{geoError}</p>}
+                                
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    </Accordion>
+                    {postalCode.length >= 6 && !geoError ? (
+                                    <p className="d-block text-start" style={{ color: "green", fontSize: "0.8rem" }}>Using postal code for location.</p>
+                                ) : (
+                                    <p className="d-block text-start" style={{ color: "blue", fontSize: "0.8rem" }}>Using automatic geolocation.</p>
+                                )}
+                </div>
+                </Row>
                 <Row>
                     <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
                 </Row>
@@ -218,7 +261,7 @@ const MainBody = ({
                 <Row>
                     <ButtonControls orderBy={orderBy} setOrderBy={setOrderBy} mapView={mapView} toggleMapView={toggleMapView} toggleFilterView={toggleFilterView} badgeCount={badgeCount}/>
                 </Row>
-
+                
                 <hr className="mb-0 pb-0"/>
 
             </div>

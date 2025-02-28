@@ -10,7 +10,7 @@ function SearchBar({ searchQuery, setSearchQuery }: {
 
 
     return (
-        <Form.Group controlId="searchKeyword" className="mt-4">
+        <Form.Group controlId="searchKeyword">
             <InputGroup className="search-bar">
                 <InputGroup.Text>
                 <BiSearch size={20} />
