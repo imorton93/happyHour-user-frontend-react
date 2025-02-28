@@ -10,6 +10,7 @@ import { Restaurant } from '../../types/Restaurant';
 import { useState } from 'react';
 import DetailWindow from '../DetailWindow/DetailWindow';
 import MapRestaurantCard from './MapRestaurantCard';
+import './Map.css'
 
 
 // Fix Leaflet marker icon issue in React
@@ -56,7 +57,7 @@ export default function MapView({ restaurants }: { restaurants: Restaurant[]}) {
                 />
                 {restaurants.map((restaurant) => (
                     <Marker key={restaurant.yelpid} position={[restaurant.latitude, restaurant.longitude]} icon={customIcon}>
-                    <Popup>
+                    <Popup className='custom-popup p-0 m-0'>
                         <MapRestaurantCard restaurant={restaurant} onSelectedRestaurant={onSelectedRestaurant}/>
                     </Popup>
                     </Marker>

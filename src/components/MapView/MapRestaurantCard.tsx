@@ -4,6 +4,7 @@ import { Restaurant } from "../../types/Restaurant";
 import { isTimeInRange } from "../../utils/timesUtils";
 import { hasHappyHourGivenDayAndTime } from "../../utils/happyHourUtils";
 import { hasASpecialOnGivenDay } from "../../utils/specialsUtils";
+import "./Map.css"
 
 function MapRestaurantCard({ restaurant, onSelectedRestaurant }: { restaurant: Restaurant; onSelectedRestaurant: (id: string) => void}){
 
@@ -35,15 +36,16 @@ function MapRestaurantCard({ restaurant, onSelectedRestaurant }: { restaurant: R
 
 
     return (
-        <Card className="restaurant-card" onClick={() => onSelectedRestaurant(restaurant.yelpid)}>
-            <div className="d-flex align-items-center">
+        <Card className="map-restaurant-card" onClick={() => onSelectedRestaurant(restaurant.yelpid)}>
+                <div>
                 {/* Restaurant Details  */}
-                <div className="restaurant-details">
+                <div className="map-restaurant-details">
                     <h5>{restaurant.name}</h5>
                     {/* <p>{restaurant.address}, {restaurant.city}</p> */}
                 </div>
+                <hr/>
                 {/* Specials & Happy Hour  */}
-                <div className="restaurant-status">
+                <div className="map-restaurant-status">
                     <p>
                         <strong>Happy Hour Now:</strong>{" "}
                         {availableNowHappyHour(restaurant) ? <FaCheck className='check-icon'/> : <FaTimes className="cross-icon"/>}
@@ -55,6 +57,7 @@ function MapRestaurantCard({ restaurant, onSelectedRestaurant }: { restaurant: R
                     
                 </div>
             </div>
+            <p className="click-hint">Click to view</p>
         </Card>
 
     )
