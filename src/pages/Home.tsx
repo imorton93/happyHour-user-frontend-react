@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import MainBody from "../components/MainBody"
 import { useRestaurants } from "../hooks/useRestaurant";
 import { Restaurant } from "../types/Restaurant";
-import { isValidCanadianPostalCode, formatPostalCode } from "../utils/postalCodeUtils";
+import { useUserLocation } from "../context/UserLocationProvider";
 
 const Home = () => {
 
@@ -10,9 +10,8 @@ const Home = () => {
     const [filteredRestaurants, setFilteredRestaurants] = useState<Restaurant[]>([]);
     const { data, isLoading, error } = useRestaurants();
     const [orderBy, setOrderBy] = useState("A-Z");
-    const [userLocation, setUserLocation] = useState<{lat: number; lng: number } | null>(null);
-    const [postalCode, setPostalCode] = useState("");
-    const [geoError, setGeoError] = useState<string | null>(null);
+    const { userLocation } = useUserLocation();
+
 
     useEffect(() => {
         if(data && data.length > 0) {
@@ -21,58 +20,7 @@ const Home = () => {
         }   
     }, [data])
 
-    function fetchGeoLocation() {
-        if("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    console.log(position.coords.latitude, " , ", position.coords.longitude);
-                    setUserLocation({
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                    });
-                },
-                (error) => {
-                    console.error("Error getting location:", error);
-                }
-            );
-        } else {
-            console.error("Geolocation is not supported by this browser");
-        }
-    }
-
-    // Get current location of user
-    useEffect(() => {
-        if (postalCode.length >= 6) {
-            if (isValidCanadianPostalCode(postalCode)) {
-                let formattedPostalCode = formatPostalCode(postalCode);
-                fetch(`https://geocoder.ca/?postal=${formattedPostalCode}&json=1`)
-                    .then((res) => res.json())
-                    .then((data) => {
-                        if (data.latt && data.longt) {
-                            console.log("Geocoder.ca:", data.latt, data.longt);
-                            setUserLocation({ lat: parseFloat(data.latt), lng: parseFloat(data.longt) });
-                            setGeoError(null); // Clear any previous errors
-                        } else {
-                            console.error("Invalid postal code response from API");
-                            setGeoError("Invalid postal code. Please check and try again.");
-                            fetchGeoLocation(); 
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Error fetching geolocation from API.", error);
-                        setGeoError("Failed to get location. Falling back to auto-location.");
-                        fetchGeoLocation(); 
-                    });
-            } else {
-                console.error("Invalid postal code format");
-                setGeoError("Invalid postal code format. Use A1A 1A1.");
-            }
-        } else if (postalCode.length === 0) {
-            fetchGeoLocation();
-            setGeoError(null);
-        }
-    }, [postalCode]);
-
+    //When userLocation changes, 
     useEffect(() => {
         if(orderBy === 'Nearest'){
             const restaurantsCopy: Restaurant[] = sortBy(orderBy, filteredRestaurants);
@@ -85,7 +33,6 @@ const Home = () => {
         if(filteredRestaurants.length > 0){
             setFilteredRestaurants(sortBy(orderBy, filteredRestaurants));
         }
-        
 
     }, [orderBy]);
 
@@ -170,7 +117,7 @@ const Home = () => {
     return (
         <div>
             {restaurants.length > 0 && (
-            <MainBody geoError={geoError} postalCode={postalCode} setPostalCode={setPostalCode} sortBy={sortBy} orderBy={orderBy} setOrderBy={setOrderBy} restaurants={restaurants} filteredRestaurants={filteredRestaurants} setFilteredRestaurants={setFilteredRestaurants}/>
+            <MainBody sortBy={sortBy} orderBy={orderBy} setOrderBy={setOrderBy} restaurants={restaurants} filteredRestaurants={filteredRestaurants} setFilteredRestaurants={setFilteredRestaurants}/>
         )}
         </div>
     );

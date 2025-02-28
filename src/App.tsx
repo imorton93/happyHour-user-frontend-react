@@ -1,5 +1,6 @@
-import { Navbar } from 'react-bootstrap'
 import './App.css'
+import NavBar from './components/Layout/Navbar'
+import { UserLocationProvider } from './context/UserLocationProvider'
 import Home from './pages/Home'
 import { Route, Routes } from 'react-router-dom'
 
@@ -7,12 +8,12 @@ function App() {
 
   return (
     <>
-      <Navbar bg="dark" variant="dark" className='p-2'>
-        <Navbar.Brand className='pl-3' href="#">Vancity Happy Hour</Navbar.Brand>
-      </Navbar>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <UserLocationProvider>
+        <NavBar/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </UserLocationProvider>
     </>
   )
 }
