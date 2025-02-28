@@ -57,13 +57,7 @@ export default function MapView({ restaurants }: { restaurants: Restaurant[]}) {
                 {restaurants.map((restaurant) => (
                     <Marker key={restaurant.yelpid} position={[restaurant.latitude, restaurant.longitude]} icon={customIcon}>
                     <Popup>
-                        <MapRestaurantCard restaurant={restaurant}/>
-                        <Button
-                            variant="primary"
-                            onClick={() => onSelectedRestaurant(restaurant.yelpid)}
-                        >
-                        See Deals
-                        </Button>
+                        <MapRestaurantCard restaurant={restaurant} onSelectedRestaurant={onSelectedRestaurant}/>
                     </Popup>
                     </Marker>
                 ))}
