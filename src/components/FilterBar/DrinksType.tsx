@@ -1,5 +1,4 @@
-import { ChangeEvent } from "react";
-import { Accordion, Card, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 
 function DrinksType({
@@ -25,7 +24,7 @@ function DrinksType({
 
     return (
         
-              <Form.Group className="border-bottom mb-3 pb-3">
+              <Form.Group className="border-bottom mb-3 pb-3 mt-3">
                 <h5 className="centered">Drink Types</h5>
                 {drinkTypes.map((obj: {name: string; isChecked:boolean}) => ( 
                     <Form.Check

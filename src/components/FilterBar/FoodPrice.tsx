@@ -1,4 +1,4 @@
-import { Accordion, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 
 
@@ -30,7 +30,7 @@ function FoodPrice({
               value={maxPrice !== undefined ? maxPrice.toFixed(2) : ""}
               onChange={(e) => onMaxPriceChange(Number(e.target.value) || 0)}
               placeholder="Max"
-              step="0.01"
+              step="0.50"
               min="0"
             />
           </Form.Group>

@@ -18,14 +18,14 @@ export function UserLocationProvider({ children }: { children: ReactNode}) {
     const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
     const [postalCode, setPostalCode] = useState("");
     const [geoError, setGeoError] = useState<string | null>(null);
-    const [source, setSource] = useState<string | null>(null);
+    const [source, setSource] = useState<string>("");
     const [loading, setLoading] = useState(false);
 
     function fetchGeoLocation() {
         if("geolocation" in navigator){
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    console.log(position.coords.latitude, " , ", position.coords.longitude);
+                    // console.log(position.coords.latitude, " , ", position.coords.longitude);
                     setUserLocation({
                         lat: position.coords.latitude,
                         lng: position.coords.longitude,

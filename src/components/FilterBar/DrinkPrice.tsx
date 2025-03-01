@@ -1,4 +1,4 @@
-import { Accordion, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 
 function DrinkPrice({
@@ -26,18 +26,6 @@ function DrinkPrice({
     return (
         <Form.Group className="border-bottom mb-3 pb-3">
           <h5 className="centered">Drink Pricing</h5>
-            {/* Min Price Input
-          <Form.Group className="mb-2">
-            <Form.Label className="text-start d-block text-white">Min Price</Form.Label>
-            <Form.Control
-              type="number"
-              value={minPrice !== undefined ? minPrice.toFixed(2) : ""}
-              onChange={(e) => onMinPriceChange(Number(e.target.value) || 0)}
-              placeholder="Min"
-              step="0.01"
-              min="0"
-            />
-          </Form.Group> */}
 
           {/* Max Price INput  */}
           <Form.Group className="mb-2">
@@ -47,7 +35,7 @@ function DrinkPrice({
               value={maxPrice !== undefined ? maxPrice.toFixed(2) : ""}
               onChange={(e) => onMaxPriceChange(Number(e.target.value) || 0)}
               placeholder="Max"
-              step="0.01"
+              step="0.5"
               min="0"
             />
           </Form.Group>

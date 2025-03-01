@@ -14,6 +14,8 @@ import { strWeekdayToNum } from "../utils/daysUtils";
 import { hasDiscountWine, hasDrinkType, getMinDrinkPrice } from "../utils/drinksUtils";
 import { getMinFoodPrice } from "../utils/foodUtils";
 import LocationSource from "./LocationSource";
+import { useUserLocation } from "../context/UserLocationProvider";
+import { isWithinDistance } from "../utils/distanceUtils";
 
 const MainBody = ({ 
         restaurants,
@@ -37,6 +39,7 @@ const MainBody = ({
     const [filters, setFilters] = useState<FilterObject>({});
     const [mapView, setMapView] = useState(false);
     const [filterView, setFilterView] = useState(false);
+    const { userLocation } = useUserLocation();
 
     //When the user changes the search query
     useEffect(() => {
@@ -156,6 +159,12 @@ const MainBody = ({
         
     }
 
+    function filterByProximity(distance: number, restaurants: Restaurant[]){
+        return restaurants.filter((restaurant) => {
+            return isWithinDistance(distance, userLocation?.lat, userLocation?.lng, restaurant.latitude, restaurant.longitude);
+        })
+    }
+
 
     function filterData(newFilters: FilterObject){
         let restaurantsCopy: Restaurant[] = [...restaurants];
@@ -184,11 +193,13 @@ const MainBody = ({
                     break;
                 case "restaurantTypes":
                     restaurantsCopy = filterByRestaurantTypes(newFilters[key], restaurantsCopy);
-                    console.log('Filter by restaurantTypes')
                     break;
                 case "selectedDay_HappyHour":
                     restaurantsCopy = filterHappyHourOnGivenDay(newFilters[key], newFilters["selectedTime_HappyHour"], restaurantsCopy);
-                    console.log("selected day Happy hour and selected time happy hour filter");
+                    break;
+                case "proximity":
+                    restaurantsCopy = filterByProximity(newFilters[key], restaurantsCopy);
+                    console.log('Filter by proximity');
                     break;
                 case "Beer":
                 case "Spirit":

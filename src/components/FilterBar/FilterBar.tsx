@@ -10,6 +10,8 @@ import { Button, Col, Form, Modal } from 'react-bootstrap';
 import { Restaurant } from '../../types/Restaurant';
 import { useRestaurantCategories } from '../../hooks/useRestaurantCategories';
 import RestaurantType from './RestaurantType';
+import Proximity from './Proximity';
+import { useUserLocation } from '../../context/UserLocationProvider';
 
 function dollarsToCents(amount: number): number {
     return Math.round(amount * 100);
@@ -26,6 +28,7 @@ function FilterBar({ handleFilterChange, filterView, setFilterView, setBadgeCoun
     }
 ) {
 
+    const { source } = useUserLocation();
     const [maxDrinkPrice, setMaxDrinkPrice] = useState<number | undefined>();
     const [maxFoodPrice, setMaxFoodPrice] = useState<number | undefined>();
     const [discountWine, setDiscountWine] = useState(false);
@@ -36,6 +39,8 @@ function FilterBar({ handleFilterChange, filterView, setFilterView, setBadgeCoun
     const [selectedDay_DailySpecials, setSelectedDay_DailySpecials] = useState("");
     const [showValidation_HappyHourAvailability, setShowValidation_HappyHourAvailability] = useState(false);
     const [restaurantTypes, setRestaurantTypes] = useState<string[]>([]);
+    const [distance, setDistance] = useState(12);
+    const [proximityOn, setProximityOn] = useState(false);
     const [drinkTypes, setDrinkTypes]= useState([
         {
             name: "Beer",
@@ -72,6 +77,8 @@ function FilterBar({ handleFilterChange, filterView, setFilterView, setBadgeCoun
         setSelectedDay_DailySpecials("");
         setDrinkTypes(drinkTypes.map((item) => {return {...item, isChecked:false}}));
         setRestaurantTypes([]);
+        setProximityOn(false);
+        setDistance(12);
 
         //send empty filter object to reset filters
         handleFilterChange({});
@@ -101,6 +108,12 @@ function FilterBar({ handleFilterChange, filterView, setFilterView, setBadgeCoun
 
         if(availableNow_HappyHour !== false){ 
             newFilters['availableNow_HappyHour'] = true;
+            filterCount++;
+        }
+
+        if(proximityOn){
+            console.log('proximity set to: ', distance);
+            newFilters['proximity'] = distance;
             filterCount++;
         }
 
@@ -209,6 +222,12 @@ function FilterBar({ handleFilterChange, filterView, setFilterView, setBadgeCoun
                     setSelectedDay_DailySpecials={setSelectedDay_DailySpecials}/>
 
                 <RestaurantType restaurantTypes={restaurantTypes} categories={categories} setRestaurantTypes={setRestaurantTypes}/>
+
+                {/* condition to make sure user has some kind of location service on */}
+                {source !== "" && 
+                (<Proximity distance={distance} proximityOn={proximityOn} setDistance={setDistance} setProximityOn={setProximityOn}/>)
+                }
+
 
                 <DrinksType drinkTypes={drinkTypes} setDrinkTypes={setDrinkTypes}/>
 
