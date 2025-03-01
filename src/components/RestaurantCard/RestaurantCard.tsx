@@ -5,10 +5,41 @@ import "./RestaurantCard.css"
 import { hasASpecialOnGivenDay } from "../../utils/specialsUtils";
 import { isTimeInRange } from "../../utils/timesUtils";
 import { hasHappyHourGivenDayAndTime } from "../../utils/happyHourUtils";
+import { useUserLocation } from "../../context/UserLocationProvider";
+import { useEffect, useState } from "react";
+import { calculateDistance } from "../../utils/distanceUtils";
 
 
 
 function RestaurantCard({ restaurant, handleSelectedRestaurant }: { restaurant: Restaurant; handleSelectedRestaurant: (restaurant: Restaurant) => void;}){
+    const { source, userLocation } = useUserLocation();
+    const [ distanceToUser, setDistanceToUser] = useState("");
+
+    useEffect(() => {
+        if(source === "" || !userLocation){
+            setDistanceToUser("");
+        }else{
+            const distance = calculateDistance(userLocation.lat, userLocation.lng, restaurant.latitude, restaurant.longitude);
+            formatDistance(distance);
+        }
+        
+    }, [userLocation])
+
+    function formatDistance(distance: number){
+        if(source === ""){
+            setDistanceToUser("");
+        } 
+        else if(distance < 0.5){
+            setDistanceToUser("(<500m)");
+        } 
+        else if(distance > 25){
+            setDistanceToUser("(>25km)");
+        } 
+        else{
+            setDistanceToUser(`(~${Math.round(distance * 2) / 2}km)`)
+        }
+        
+    }
 
     //function returns True if the restaurant has daily specials today
     function specialsAvailableToday(restaurant: Restaurant): boolean{
@@ -47,7 +78,7 @@ function RestaurantCard({ restaurant, handleSelectedRestaurant }: { restaurant: 
                 {/* Restaurant Details  */}
                 <div className="restaurant-details">
                     <h5>{restaurant.name}</h5>
-                    <p>{restaurant.address}, {restaurant.city}</p>
+                    <p>{restaurant.address}, {restaurant.city} {distanceToUser}</p>
                     {/* Categories  */}
                     {restaurant.categories.map((category, index) => (
                         <Badge key={index} pill className="category-badge">
