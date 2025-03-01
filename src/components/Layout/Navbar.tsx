@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navbar, Nav, Form, NavDropdown, Button, Offcanvas } from "react-bootstrap";
+import { Navbar, Nav, Form, Offcanvas } from "react-bootstrap";
 import './Navbar.css'
 import { useUserLocation } from "../../context/UserLocationProvider";
 

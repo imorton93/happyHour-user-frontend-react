@@ -1,5 +1,3 @@
-
-
 export function isWithinDistance(maxDistance: number, userLat: number | undefined, userLng: number | undefined, restaurantLat: number, restaurantLng: number): boolean{
     if(userLat === undefined || userLng === undefined) return false;
 
