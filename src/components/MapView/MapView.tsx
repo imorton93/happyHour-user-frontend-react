@@ -5,12 +5,13 @@ import L from 'leaflet';
 // Fix Leaflet's default icon path issue in React apps
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-import { Button, Card, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { Restaurant } from '../../types/Restaurant';
 import { useState } from 'react';
 import DetailWindow from '../DetailWindow/DetailWindow';
 import MapRestaurantCard from './MapRestaurantCard';
 import './Map.css'
+import { useUserLocation } from '../../context/UserLocationProvider';
 
 
 // Fix Leaflet marker icon issue in React
@@ -21,6 +22,13 @@ const customIcon = new L.Icon({
   iconAnchor: [12, 41],
 });
 
+const userIcon = new L.DivIcon({
+    className: "user-location-icon",
+    html: '<div class="user-dot"></div>',
+    iconSize: [12, 12],
+    iconAnchor: [6, 6],
+})
+
 interface MapViewProps {
    yelpid: string; name: string; lat: number; lng: number;
 }
@@ -29,6 +37,7 @@ export default function MapView({ restaurants }: { restaurants: Restaurant[]}) {
 
     const[showModal, setShowModal] = useState(false);
     const[selectedRestaurant, setSelectedRestaurant] = useState<Restaurant | null>(null);
+    const { source, userLocation } = useUserLocation();
 
     let locations: MapViewProps[] = []
 
@@ -62,6 +71,9 @@ export default function MapView({ restaurants }: { restaurants: Restaurant[]}) {
                     </Popup>
                     </Marker>
                 ))}
+                
+                {/* Condition to make sure a location source is set and userlocation not null  */}
+                { source !== "" && userLocation && <Marker position={[userLocation?.lat, userLocation.lng]} icon={userIcon} />}
                 </MapContainer>
         <DetailWindow selectedRestaurant={selectedRestaurant} showModal={showModal} setShowModal={setShowModal} ></DetailWindow>
     </Container>
