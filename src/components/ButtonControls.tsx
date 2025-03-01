@@ -1,5 +1,6 @@
 import { SetStateAction } from "react";
-import { Badge, Button, ButtonGroup, Container, Dropdown, DropdownButton } from "react-bootstrap";
+import { Badge, Button, ButtonGroup, Container, Dropdown } from "react-bootstrap";
+import { useUserLocation } from "../context/UserLocationProvider";
 
 
 function ButtonControls({ mapView, toggleMapView, toggleFilterView, badgeCount, orderBy, setOrderBy }: 
@@ -12,6 +13,8 @@ function ButtonControls({ mapView, toggleMapView, toggleFilterView, badgeCount, 
         setOrderBy: React.Dispatch<SetStateAction<string>>;
     }){
 
+    const { source } = useUserLocation();
+
     return(
         <Container className="my-3">
             <ButtonGroup className="w-100 gap-2">
@@ -21,7 +24,7 @@ function ButtonControls({ mapView, toggleMapView, toggleFilterView, badgeCount, 
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         <Dropdown.Item onClick={() => setOrderBy('A-Z')}>A-Z</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setOrderBy('Nearest')}>Nearest</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setOrderBy('Nearest')} disabled={source === ""}>Nearest</Dropdown.Item>
                         <Dropdown.Item onClick={() => setOrderBy('Cheapest Beer')}>Cheapest Beer</Dropdown.Item>
                         <Dropdown.Item onClick={() => setOrderBy('Cheapest Wine')}>Cheapest Wine</Dropdown.Item>
                         <Dropdown.Item onClick={() => setOrderBy('Cheapest Cider')}>Cheapest Cider</Dropdown.Item>
