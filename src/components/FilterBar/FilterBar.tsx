@@ -200,7 +200,7 @@ function FilterBar({ handleFilterChange, filterView, setFilterView, setBadgeCoun
 
     return (
 
-        <Modal show={filterView} onHide={() => setFilterView(false)} size="lg" centered>
+        <Modal className="custom-modal" show={filterView} onHide={() => setFilterView(false)} size="lg" centered>
             <Modal.Header closeButton>
                 <Modal.Title>Filters</Modal.Title>
             </Modal.Header>

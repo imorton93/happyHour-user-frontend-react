@@ -1,30 +1,30 @@
 .custom-modal .modal-content {
-    background-color: #1a1a1a;
-    color: #86c5da;
+    background-color: var(--modal-bg);
+    color: var(--modal-text-color);
     border-radius: 10px;
     border: 1px solid #333;
 }
 
 .custom-modal .modal-title {
-    color: #9ddcff;
+    color: var(--modal-title-color);
     text-align: center;
     margin-bottom: 10px;
 }
 
 .custom-hr{
-    border-color: #444;
+    border-color: var(--modal-border-color);
     opacity: 0.7;
 }
 
 .custom-modal .modal-link {
-    color: #5cb3ff;
+    color: var(--modal-link-color);
     text-decoration: none;
     font-weight: bold;
 }
 
 .custom-modal .modal-link:hover {
     text-decoration: underline;
-    color: #86c5da;
+    color: var(--modal-link-hover);
 }
 
 .custom-modal .modal-body {
@@ -40,24 +40,24 @@
 
 /* hours accordion  */
 .custom-accordion .accordion-item {
-    background-color: #1a1a1a;
-    border: 1px solid #333;
-    color: #86c5da;
+    background-color: var(--accordion-bg);
+    border: 1px solid var(--modal-border-color);
+    color: var(--accordion-text);
 }
 
 .custom-accordion .accordion-header {
-    background-color: #222;
-    color: #9ddcff;
+    background-color: var(--accordion-bg);
+    color: var(--modal-title-color);
 }
 
 .custom-accordion .accordion-button {
-    background-color: #222;
-    color: #9ddcff;
+    background-color: var(--accordion-bg);
+    color: var(--modal-title-color);
 }
 
 .custom-accordion .accordion-button:not(.collapsed) {
-    background-color: #333;
-    color: #9ddcff;
+    background-color: var(--modal-border-color);
+    color: var(--modal-title-color);
 }
 
 .custom-accordion .accordion-button:focus {
@@ -71,9 +71,9 @@
 }
 
 .list-group-item.custom-listitem {
-    background-color: #222;
-    color: #86c5da;
-    border-bottom: 1px solid #444;
+    background-color: var(--list-item-bg);
+    color: var(--modal-text-color);
+    border-bottom: 1px solid var(--list-border);
 }
 
 .list-group-item.custom-listitem:last-child {
@@ -84,28 +84,28 @@
 /* item cards */
 .card.custom-card {
     /* background-color: #1a1a1a; */
-    background-color: #252525;
-    color: #86c5da;
+    background-color: var(--card-bg);
+    color: var(--card-text-color);
     border-radius: 10px;
     padding: 15px;
-    border: 1px solid #333;
+    border: 1px solid var(--card-border);
 }
 
 .card.custom-card-title {
-    color: #9ddcff;
+    color: var(--modal-title-color);
     font-size: 1.2rem;
     font-weight: bold;
 }
 
 .card.custom-card-price {
-    color: #5cb3ff;
+    color: var(--modal-link-color);
     font-size: 1rem;
     font-weight: bold;
     opacity: 0.9;
 }
 
 .card.custom-card-text {
-    color: #d0d0d0;
+    color: var(--text-color);
     font-size: 0.95rem;
     opacity: 0.8;
 }
@@ -118,7 +118,7 @@
     right: 20px;
     background: none;
     border: none;
-    color: #9ddcff; /* Light blue */
+    color: var(--close-btn-color);
     font-size: 1.8rem;
     font-weight: bold;
     cursor: pointer;
@@ -126,5 +126,5 @@
 }
 
 .modal-close-btn:hover {
-    color: #5cb3ff; /* Brighter blue */
+    color: var(--close-btn-hover);
 }

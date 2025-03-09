@@ -3,10 +3,6 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #cfc5c5;
-
   min-height: 100vh;
   width: 100%;
 
@@ -14,22 +10,107 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --bg-color: #F0F0F0; /* Light gray background */
+  --text-color: #1E1E1E; /* Dark gray text for contrast */
+  --modal-bg: #FFFFFF;
+  --modal-text-color: #333;
+  --modal-border-color: #CCC;
+  --modal-title-color: #0056b3;
+  --modal-link-color: #0078D4;
+  --modal-link-hover: #0056b3;
+  --accordion-bg: #F8F9FA;
+  --accordion-text: #1E1E1E;
+  --list-bg: #FFFFFF;
+  --list-item-bg: #F1F1F1;
+  --list-border: #DDD;
+  --card-bg: #FFFFFF; /* White background for cards */
+  --card-text-color: #1E1E1E;
+  --card-border-color: #CCCCCC;
+  --box-shadow-color: rgba(0, 0, 0, 0.1);
+  --badge-bg: #007bff;
+  --badge-text: white;
+  --icon-check: green;
+  --icon-cross: red;
+  --border-color: #CCCCCC; /* Subtle gray border */
+  --link-color: #0078D4; /* Blue links for accessibility */
+  --close-btn-color: #0056b3;
+  --close-btn-hover: #0078D4;
+
+  /* navbar  */
+  --sidebar-bg: #F8F9FA; 
+  --sidebar-text-color: #1E1E1E;
+  --sidebar-border: #CCC;
+  --sidebar-title-color: #333;
+  --sidebar-input-bg: #FFFFFF;
+  --sidebar-input-text: #333;
+  --sidebar-input-border: #AAA;
+  --sidebar-input-focus-bg: #F0F0F0;
+  --sidebar-input-focus-border: #0078D4;
+  --sidebar-button-bg: #0078D4;
+  --sidebar-button-hover: #0056b3;
+  --sidebar-button-text: #FFFFFF;
+}
+
+
+
+
+[data-theme="dark"] {
+  --bg-color: #1E1E1E;
+  --text-color: #E0E0E0;
+  --modal-bg: #2C2C2C;
+  --modal-text-color: #86c5da;
+  --modal-border-color: #333;
+  --modal-title-color: #9ddcff;
+  --modal-link-color: #5cb3ff;
+  --modal-link-hover: #86c5da;
+  --accordion-bg: #1a1a1a;
+  --accordion-text: #86c5da;
+  --list-bg: #1a1a1a;
+  --list-item-bg: #222;
+  --list-border: #444;
+  --card-bg: #2C2C2C;
+  --card-text-color: #E0E0E0;
+  --card-border-color: #444;
+  --box-shadow-color: rgba(0, 0, 0, 0.2);
+  --badge-bg: #007bff;
+  --badge-text: white;
+  --icon-check: green;
+  --icon-cross: red;
+  --link-color: #FFD700; /* Gold links */
+  --close-btn-color: #9ddcff;
+  --close-btn-hover: #5cb3ff;
+
+  /* navbar  */
+  --sidebar-bg: #2C2C2C;
+  --sidebar-text-color: #E0E0E0;
+  --sidebar-border: #444;
+  --sidebar-title-color: #E0E0E0;
+  --sidebar-input-bg: #3A3A3A;
+  --sidebar-input-text: #E0E0E0;
+  --sidebar-input-border: #444;
+  --sidebar-input-focus-bg: #444;
+  --sidebar-input-focus-border: #007bff;
+  --sidebar-button-bg: #007bff;
+  --sidebar-button-hover: #0056b3;
+  --sidebar-button-text: #FFFFFF;
 }
 
 
 html, body{
-  background-color: #1E1E1E;
+  background-color: var(--bg-color);
   min-height: 100vh;
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 #root{
   padding: 0;
-  background-color: #1E1E1E;
-  color: #E0E0E0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   min-height: 100vh;
 }
 
 .filter-container{
-  background-color: #1E1E1E;
-  color: #E0E0E0;
+  background-color: var(--bg-color);
 }

@@ -22,9 +22,9 @@ function LocationSource(){
         }, [source])
     
     return (
-        <div>
-            <small className="d-block text-start">*Input postal code for better location accuracy on desktop.</small>
-            <p className="d-block text-start" style={{ color: colorStyle, fontSize: "0.8rem" }}>{sourceText}</p>                     
+        <div className="py-2">
+            <p className="d-block text-start my-0 py-0" style={{ color: colorStyle }}>{sourceText}</p>
+            <small className="d-block text-start pt-0 mt-0" style={{ fontSize: "0.8rem" }}>*Input postal code for better location accuracy on desktop.</small>                   
         </div>
     )
     

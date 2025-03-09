@@ -18,6 +18,9 @@ function processRestaurantData(restaurants: Restaurant[]): Restaurant[]{
         const cheapestPrices: Record<string, number> = {};
 
         happyHourDrinks.forEach((drink) => {
+            //Does not consider drinks deals with price 0, drink deals usually are % discounts rather than having an actual price
+            if(drink.price === 0) return;
+
             if (!cheapestPrices[drink.type] || drink.price < cheapestPrices[drink.type]) {
                 cheapestPrices[drink.type] = drink.price;
             }

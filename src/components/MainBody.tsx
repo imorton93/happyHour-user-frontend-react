@@ -41,6 +41,7 @@ const MainBody = ({
     const [filterView, setFilterView] = useState(false);
     const { userLocation } = useUserLocation();
 
+
     //When the user changes the search query
     useEffect(() => {
         handleFilterChange(filters);

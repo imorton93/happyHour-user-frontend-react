@@ -1,19 +1,19 @@
 /* Sidebar container */
 .offcanvas.custom-sidebar  {
-    background-color: #2C2C2C !important; /* Dark background */
-    color: #E0E0E0;
-    border-left: 1px solid #444; /* Border matching cards */
+    background-color: var(--sidebar-bg) !important; 
+    color: var(--sidebar-text-color);
+    border-left: 1px solid var(--sidebar-border);
 }
 
 /* Sidebar header */
 .custom-sidebar .offcanvas-header {
-    border-bottom: 1px solid #444;
+    border-bottom: 1px solid var(--sidebar-border);
 }
 
 /* Sidebar title */
 .custom-sidebar .offcanvas-title {
     font-size: 1.1rem;
-    color: #E0E0E0;
+    color: var(--sidebar-title-color);
 }
 
 /* Sidebar body */
@@ -24,32 +24,32 @@
 /* Styles the form label */
 .custom-sidebar-label {
     font-size: 0.85rem;
-    color: #E0E0E0;
+    color: var(--sidebar-text-color);
 }
 
 /* Styles the input field */
 .custom-sidebar-input {
     font-size: 0.85rem;
     padding: 5px;
-    background-color: #3A3A3A;
-    color: #E0E0E0;
-    border: 1px solid #444;
+    background-color: var(--sidebar-input-bg);
+    color: var(--sidebar-input-text);
+    border: 1px solid var(--sidebar-input-border);
     border-radius: 5px;
 }
 
 /* Input focus styling */
 .custom-sidebar-input:focus {
-    background-color: #444;
-    color: #FFF;
-    border-color: #007bff;
+    background-color: var(--sidebar-input-focus-bg);
+    color: var(--sidebar-text-color);
+    border-color: var(--sidebar-input-focus-border);
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 /* Button styling */
 .custom-sidebar-button {
-    background-color: #007bff;
-    color: white;
+    background-color: var(--sidebar-button-bg);
+    color: var(--sidebar-button-text);
     border: none;
     padding: 8px 15px;
     border-radius: 5px;
@@ -58,7 +58,7 @@
 }
 
 .custom-sidebar-button:hover {
-    background-color: #0056b3;
+    background-color: var(--sidebar-button-hover);
 }
 
 .dots::after {
@@ -73,3 +73,15 @@
     100% { content: ""; }
 }
   
+
+.icon-transition {
+    transition: transform 0.3s ease-in-out;
+}
+
+.icon-transition.scale-in {
+    transform: scale(1.2);
+}
+
+.icon-transition.scale-out {
+    transform: scale(0.5);
+}

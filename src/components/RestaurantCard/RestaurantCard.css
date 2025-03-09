@@ -1,11 +1,12 @@
+
 .card.restaurant-card {
     padding: 15px;
     margin: 5px 0;
     border-radius: 10px;
-    background-color: #2C2C2C; 
-    color: #E0E0E0; 
-    border: 1px solid #444; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    background-color: var(--card-bg); 
+    color: var(--card-text-color); 
+    border: 1px solid var(--card-border-color); 
+    box-shadow: 0 4px 8px var(--box-shadow-color); 
     cursor: pointer;
 }
 
