@@ -34,7 +34,7 @@ function ListContainer({
                 <ListGroup >
                     {restaurants.map((restaurant) => (
                     <ListGroup.Item
-                        key={restaurant.yelpid}
+                        key={restaurant.place_id}
                         className="bg-transparent border-0"
                         >
                         <RestaurantCard restaurant={restaurant} handleSelectedRestaurant={handleSelectedRestaurant}/>

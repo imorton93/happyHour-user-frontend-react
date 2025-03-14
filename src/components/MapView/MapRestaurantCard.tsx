@@ -36,7 +36,7 @@ function MapRestaurantCard({ restaurant, onSelectedRestaurant }: { restaurant: R
 
 
     return (
-        <Card className="map-restaurant-card" onClick={() => onSelectedRestaurant(restaurant.yelpid)}>
+        <Card className="map-restaurant-card" onClick={() => onSelectedRestaurant(restaurant.place_id)}>
                 <div>
                 {/* Restaurant Details  */}
                 <div className="map-restaurant-details">

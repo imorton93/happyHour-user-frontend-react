@@ -30,7 +30,7 @@ const userIcon = new L.DivIcon({
 })
 
 interface MapViewProps {
-   yelpid: string; name: string; lat: number; lng: number;
+   place_id: string; name: string; lat: number; lng: number;
 }
 
 export default function MapView({ restaurants }: { restaurants: Restaurant[]}) {
@@ -42,12 +42,12 @@ export default function MapView({ restaurants }: { restaurants: Restaurant[]}) {
     let locations: MapViewProps[] = []
 
     restaurants.forEach((restaurant) => {
-        locations.push({ yelpid: restaurant.yelpid, name: restaurant.name, lat: restaurant.latitude, lng: restaurant.longitude })
+        locations.push({ place_id: restaurant.place_id, name: restaurant.name, lat: restaurant.latitude, lng: restaurant.longitude })
     })
 
 
     function onSelectedRestaurant(id: string){
-        const restaurant = restaurants.find((restaurant) => restaurant.yelpid === id);
+        const restaurant = restaurants.find((restaurant) => restaurant.place_id === id);
         if(restaurant){
             setSelectedRestaurant(restaurant);
             setShowModal(true);
@@ -65,7 +65,7 @@ export default function MapView({ restaurants }: { restaurants: Restaurant[]}) {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
                 {restaurants.map((restaurant) => (
-                    <Marker key={restaurant.yelpid} position={[restaurant.latitude, restaurant.longitude]} icon={customIcon}>
+                    <Marker key={restaurant.place_id} position={[restaurant.latitude, restaurant.longitude]} icon={customIcon}>
                     <Popup className='custom-popup p-0 m-0'>
                         <MapRestaurantCard restaurant={restaurant} onSelectedRestaurant={onSelectedRestaurant}/>
                     </Popup>

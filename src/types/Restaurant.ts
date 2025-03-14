@@ -1,5 +1,5 @@
 export interface Restaurant {
-    yelpid: string;
+    place_id: string;
     name: string;
     address: string;
     url: string;
